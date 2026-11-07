@@ -1,7 +1,7 @@
 # THE DISTANCE BETWEEN HOUSES
 ## Novel and audiobook master design
 
-**Form:** An original six-part, approximately 24-chapter contemporary political thriller with an epilogue, published as an audiobook-ready serial. Working length goal: 80,000–100,000 words. Parts are written and released in sequence. Only Part I is drafted here; later sections below are a writing plan, **not published chapters**.
+**Form:** An original six-part, approximately 24-chapter contemporary political thriller with an epilogue, published as an audiobook-ready serial. Working length goal: 80,000–100,000 words. Parts are written and released in sequence. Parts I and II are written; later sections below are a writing plan, **not published chapters**.
 
 **Setting:** An invented, recognizably contemporary world. North and south are geographic poles in the story, not proxies that correspond exactly to any real nations. The northern dictatorship, **the Directorate of Veyr**, is conducting open military aggression in Tarven and other neighboring borderlands. Its covert political campaign is aimed at **the Republic of Liora**, a southern democracy that sanctions the aggressor and supports its neighbors. Liora loses its sovereign existence by the end of the book.
 
@@ -43,11 +43,11 @@ Mental illness is not a shorthand for wrongness. The later psychiatric detention
 4. **The First Silence.** Dain and Tomas argue and do not apologize. Ivo loses his fishing trip.
 5. **The Shape of a Missing Person.** Sela and Eva begin to observe civic withdrawal. Niko sees the same general phenomenon from the northern side.
 
-### PART II — THE NAMES WE GIVE OUR ENEMIES (planned; chapters 06–09)
-6. **A Useful Kind of Certainty.** Rival domestic coalitions acquire simple labels and complex loyalties; local leaders discover the personal rewards of escalation.
-7. **The Second Table.** The annual August supper is attempted and fails; one group stays away, others insist this is normal.
-8. **A Man Worth Listening To.** A previously marginal local personality is rapidly elevated by attention and political sponsorship; whether support is foreign, domestic, or both becomes contested.
-9. **The Ledger.** Eva's financial inquiries find real evidence but not a complete map of the operation. Her editor begins to lose faith in publication.
+### PART II — THE NAMES WE GIVE OUR ENEMIES (published; chapters 06–09)
+6. **A Useful Kind of Certainty.** Renewal and Common Future take shape; Mara finds solidarity and a new sense of belonging, while Tomas and Dain learn how political names change family obligations.
+7. **The Second Table.** Sela assembles a diminished summer supper. Dain returns with burnt peppers, Ivo receives a promised fishing trip, and one brief opportunity for the brothers to reconcile vanishes.
+8. **A Man Worth Listening To.** Joren Fenn, a genuine mechanic with legitimate complaints, becomes the voice of the Honest Hour. His new audience and financial sponsors reshape what he is willing to say; Lev sees the clinic suffer.
+9. **The Ledger.** Eva verifies documents linking Harborbridge Civic Services to payments associated with both political sides. She has evidence of opaque financing, not proof of Veyr's role. Editor Samuel Rees fears the Chronicle cannot survive a legal fight. Sela's attendance books record a parallel withdrawal from civic life.
 
 ### PART III — THE FEED BETWEEN US (planned; chapters 10–13)
 10. **The Separate Bedrooms.** Mara and Tomas no longer share the same story of their marriage. They sleep apart without agreeing on when separation began.
@@ -93,4 +93,4 @@ Each released chapter is a UTF-8 Markdown file under `book/part-XX/`. The JSON m
 
 The root `index.html` site uses only static HTML/CSS/JavaScript and works on GitHub Pages with no database, API key, or server. Local Python audio rendering uses Piper, an open-source local TTS engine, and optional FFmpeg. The narrator reads the Markdown text, not a paraphrase. Each chapter can be rendered separately and published as `audio/<chapter-slug>.mp3`. The site checks for audio availability and shows a clear fallback while no audio file exists.
 
-**Draft status as of 2026-11-07:** Part I Chapters 01–05 written; Parts II–VI outlined, unwritten. Never describe them as finished.
+**Draft status as of 2026-11-07:** Parts I–II, Chapters 01–09, written; Parts III–VI, Chapters 10–24 and epilogue, outlined and unwritten. Never describe them as finished.

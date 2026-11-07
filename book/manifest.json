@@ -48,14 +48,51 @@
           "audio": "audio/05-the-shape-of-a-missing-person.mp3",
           "words": 1298
         }
+      ],
+      "description": "Before anyone notices what is being taken."
+    },
+    {
+      "id": "part-02",
+      "title": "The Names We Give Our Enemies",
+      "status": "published",
+      "description": "What happens when every familiar face acquires a side.",
+      "chapters": [
+        {
+          "id": "06",
+          "title": "A Useful Kind of Certainty",
+          "description": "Rival movements give genuine grievances the names of enemies.",
+          "path": "book/part-02/06-a-useful-kind-of-certainty.md",
+          "audio": "audio/06-a-useful-kind-of-certainty.mp3",
+          "words": 2491
+        },
+        {
+          "id": "07",
+          "title": "The Second Table",
+          "description": "The neighborhood tries to share supper again—and finds the chairs empty.",
+          "path": "book/part-02/07-the-second-table.md",
+          "audio": "audio/07-the-second-table.mp3",
+          "words": 3016
+        },
+        {
+          "id": "08",
+          "title": "A Man Worth Listening To",
+          "description": "A mechanic discovers the rewards and hidden price of a public voice.",
+          "path": "book/part-02/08-a-man-worth-listening-to.md",
+          "audio": "audio/08-a-man-worth-listening-to.mp3",
+          "words": 3284
+        },
+        {
+          "id": "09",
+          "title": "The Ledger",
+          "description": "Eva finds money crossing political lines, but not yet proof of who directs it.",
+          "path": "book/part-02/09-the-ledger.md",
+          "audio": "audio/09-the-ledger.mp3",
+          "words": 3348
+        }
       ]
     }
   ],
   "plannedParts": [
-    {
-      "id": "part-02",
-      "title": "The Names We Give Our Enemies"
-    },
     {
       "id": "part-03",
       "title": "The Feed Between Us"

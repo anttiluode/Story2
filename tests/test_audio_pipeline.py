@@ -34,7 +34,7 @@ class ManuscriptTests(unittest.TestCase):
         self.assertEqual(len(manifest["plannedParts"]), 5)
 
     def test_markdown_removes_markup_but_not_narrative(self):
-        source = "# Chapter One — A Name\n\n*Merrow, late summer.*\n\nThe **first** day was *warm*.\n\nShe said, \"Yes.\""
+        source = "# Chapter One — A Name\n\n*Merrow, late summer.*\n\nThe **first** day was *warm*.\n\n***\n\nShe said, \"Yes.\""
         self.assertEqual(
             manuscript_paragraphs(source),
             ["Chapter One — A Name", "Merrow, late summer.",

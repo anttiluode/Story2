@@ -67,6 +67,8 @@ def manuscript_paragraphs(markdown: str) -> list[str]:
         block = block.strip()
         if not block or block.startswith("<!--"):
             continue
+        if re.fullmatch(r"(\*\s*){3,}|(-\s*){3,}", block):
+            continue
         if block.startswith("#"):
             block = re.sub(r"^#{1,6}\s+", "", block)
         if block.startswith("> "):

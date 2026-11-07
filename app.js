@@ -48,6 +48,14 @@ function renderMarkdown(markdown, container) {
   for (const original of blocks) {
     const block = original.trim();
     if (!block || block.startsWith("# ")) continue;
+    if (/^\*\s*\*\s*\*$/.test(block)) {
+      const breakEl = document.createElement("div");
+      breakEl.className = "scene-break";
+      breakEl.textContent = "✦";
+      breakEl.setAttribute("aria-hidden", "true");
+      container.append(breakEl);
+      continue;
+    }
     if (block.startsWith("## ")) {
       const heading = document.createElement("h2");
       heading.textContent = block.slice(3);

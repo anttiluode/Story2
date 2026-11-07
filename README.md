@@ -10,7 +10,7 @@ The planned ending is uncompromising: **Liora ceases to exist as a sovereign sta
 
 ## What is actually written?
 
-**Part I: The Summer of Open Doors — Chapters 01–05.** Later parts are fully outlined in [DESIGN.md](DESIGN.md) but the prose has **not** been written. We will write and release the novel in parts instead of pretending an outline is a book.
+**Parts I and II are published: Chapters 01–09.** Part II, *The Names We Give Our Enemies*, adds four complete chapters (approximately 12,100 words) to the five-chapter opening installment. Parts III–VI are outlined in [DESIGN.md](DESIGN.md), but their prose has **not** yet been written. We publish the novel in parts, never passing off an outline as a finished book.
 
 | Chapter | Title |
 | --- | --- |
@@ -19,8 +19,13 @@ The planned ending is uncompromising: **Liora ceases to exist as a sovereign sta
 | 03 | A Very Ordinary Notification |
 | 04 | The First Silence |
 | 05 | The Shape of a Missing Person |
+| **Part II** | **The Names We Give Our Enemies** |
+| 06 | A Useful Kind of Certainty |
+| 07 | The Second Table |
+| 08 | A Man Worth Listening To |
+| 09 | The Ledger |
 
-The canonical chapter files live in `book/part-01/`, and the published table of contents lives in `book/manifest.json`.
+The canonical chapter files live in `book/part-01/` and `book/part-02/`; the published table of contents lives in `book/manifest.json`.
 
 ## Publish the reading website (GitHub Pages)
 
@@ -85,6 +90,7 @@ index.html / style.css / app.js     Static reading site
 DESIGN.md                           Plot, cast, themes, all six parts
 book/manifest.json                  Published chapter index
 book/part-01/*.md                   Written Part I manuscript
+book/part-02/*.md                   Written Part II manuscript
 tools/render_audio.py               Offline text-to-speech pipeline
 requirements-audio.txt              Piper dependency
 tests/test_audio_pipeline.py        Parser / manifest / chunking tests
