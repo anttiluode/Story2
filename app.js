@@ -69,27 +69,49 @@ function renderMarkdown(markdown, container) {
 function renderChapterCards() {
   const target = $("chapter-cards");
   target.replaceChildren();
-  for (const chapter of state.chapters) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "chapter-card";
-    button.dataset.chapter = chapter.id;
-    const n = document.createElement("span");
-    n.className = "chapter-num";
-    n.textContent = "CHAPTER " + chapter.id;
-    const title = document.createElement("h3");
-    title.textContent = chapter.title;
+  const romans = ["I", "II", "III", "IV", "V", "VI"];
+  for (const [index, part] of state.manifest.parts.entries()) {
+    const section = document.createElement("section");
+    section.className = "chapter-group";
+    const heading = document.createElement("div");
+    heading.className = "part-heading";
+    const num = document.createElement("span");
+    num.className = "part-number";
+    num.textContent = "PART " + (romans[index] || (index + 1));
+    const info = document.createElement("div");
+    const partTitle = document.createElement("h3");
+    partTitle.textContent = part.title;
     const desc = document.createElement("p");
-    desc.textContent = chapter.description || "";
-    const foot = document.createElement("div");
-    foot.className = "card-bottom";
-    const time = document.createElement("span");
-    time.textContent = Math.max(1, Math.round(chapter.words / 190)) + " MIN READ";
-    const arrow = document.createElement("span");
-    arrow.textContent = "READ →";
-    foot.append(time, arrow);
-    button.append(n, title, desc, foot);
-    target.append(button);
+    desc.textContent = part.description || "";
+    info.append(partTitle, desc);
+    heading.append(num, info);
+    section.append(heading);
+    const cards = document.createElement("div");
+    cards.className = "chapter-cards";
+    for (const chapter of part.chapters) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "chapter-card";
+      button.dataset.chapter = chapter.id;
+      const n = document.createElement("span");
+      n.className = "chapter-num";
+      n.textContent = "CHAPTER " + chapter.id;
+      const title = document.createElement("h3");
+      title.textContent = chapter.title;
+      const description = document.createElement("p");
+      description.textContent = chapter.description || "";
+      const foot = document.createElement("div");
+      foot.className = "card-bottom";
+      const time = document.createElement("span");
+      time.textContent = Math.max(1, Math.round(chapter.words / 190)) + " MIN READ";
+      const arrow = document.createElement("span");
+      arrow.textContent = "READ →";
+      foot.append(time, arrow);
+      button.append(n, title, description, foot);
+      cards.append(button);
+    }
+    section.append(cards);
+    target.append(section);
   }
 }
 function renderTOC() {
@@ -212,7 +234,7 @@ async function main() {
     const response = await fetch("book/manifest.json");
     if (!response.ok) throw new Error("HTTP " + response.status);
     state.manifest = await response.json();
-    state.chapters = state.manifest.parts.flatMap((part, i) => part.chapters.map((chapter) => ({...chapter, partNumber: ["I", "II", "III", "IV", "V", "VI"][i] || String(i + 1)})));
+    state.chapters = state.manifest.parts.flatMap((part, i) => part.chapters.map((chapter) => ({...chapter, partId: part.id, partNumber: ["I", "II", "III", "IV", "V", "VI"][i] || String(i + 1)})));
     renderChapterCards();
     navigate();
   } catch (error) {

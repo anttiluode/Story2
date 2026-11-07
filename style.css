@@ -12,3 +12,5 @@ body[data-theme="light"]{--bg:#f3eee4;--bg2:#eee6d8;--panel:#ece2d1;--text:#202a
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
 
 .prose .scene-break{text-align:center;color:var(--gold);font-size:19px;margin:2.3em auto;letter-spacing:.2em}
+
+.chapter-sections .chapter-group{margin-bottom:50px}.chapter-sections .chapter-group:last-child{margin-bottom:0}

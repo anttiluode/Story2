@@ -24,14 +24,26 @@ from tools.render_audio import (
 class ManuscriptTests(unittest.TestCase):
     def test_published_manifest_points_to_existing_files(self):
         chapters = get_chapters()
-        self.assertEqual([c["id"] for c in chapters], ["01", "02", "03", "04", "05"])
+        self.assertEqual([c["id"] for c in chapters], ["01", "02", "03", "04", "05", "06", "07", "08", "09"])
         self.assertTrue(all((ROOT / chapter["path"]).is_file() for chapter in chapters))
         self.assertTrue(all(chapter["audio"].endswith(".mp3") for chapter in chapters))
 
     def test_planned_parts_are_not_published(self):
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-        self.assertEqual(len(manifest["parts"]), 1)
-        self.assertEqual(len(manifest["plannedParts"]), 5)
+        self.assertEqual(len(manifest["parts"]), 2)
+        self.assertEqual(len(manifest["plannedParts"]), 4)
+
+    def test_chapter_paths_remain_in_their_declared_part(self):
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        for part in manifest["parts"]:
+            for chapter in part["chapters"]:
+                self.assertTrue(
+                    chapter["path"].startswith("book/" + part["id"] + "/"),
+                    (part["id"], chapter["path"]),
+                )
+                raw = (ROOT / chapter["path"]).read_text(encoding="utf-8")
+                self.assertTrue(raw.startswith("# Chapter "), chapter["path"])
+                self.assertIn(chapter["title"], raw.splitlines()[0])
 
     def test_markdown_removes_markup_but_not_narrative(self):
         source = "# Chapter One — A Name\n\n*Merrow, late summer.*\n\nThe **first** day was *warm*.\n\n***\n\nShe said, \"Yes.\""
