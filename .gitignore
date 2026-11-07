@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 .audio-work/
 audio/*.wav
+
+# Rendered film clips and regenerable image-model frames
+video/
+storyboards/frames/

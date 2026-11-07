@@ -94,6 +94,44 @@ Options:
 
 This is a **single-narrator audiobook pipeline**. Dramatic multi-voice production and music/sound design are future enhancements. No generated audio has been auditioned yet.
 
+## NEW — make illustrated film videos from narration
+
+**Story2 Film Lab** can turn any narrated chapter into a cinematic MP4.
+It uses the original chapter's text to create an editable storyboard, renders
+atmospheric faceless scenes, animates them with slow camera moves, then
+stitches them to your actual recorded MP3/WAV with FFmpeg.
+
+Faces are deliberately optional: the story can be told through Rowan Way,
+the six tables, backlit figures, windows, the school drawbridge, railway
+tracks, the clinic, the blue gate, official papers, and the northern medals.
+This avoids having AI-generated characters change faces between shots.
+
+It has three modes: **built-in illustrated graphics (no AI required)**,
+**local image generation via Diffusers**, and **your own supplied images**.
+No cloud API, hosted model, or local web server is required for graphic mode.
+It does not pretend that unreleased narration files are present.
+
+Windows quick start:
+
+    py -3.13 -m pip install -r requirements-video.txt
+    py -3.13 tools\film_lab_gui.py
+
+Alternatively double-click launch_film_lab.bat after the Pillow installation.
+
+Storyboard without audio:
+
+    py -3.13 tools\film_lab.py --chapter 01 --plan-only
+
+Preview using an actual recorded narration:
+
+    py -3.13 tools\film_lab.py --chapter 01 --audio "D:\Narration\chapter01.mp3" --mode graphic --preview-seconds 40
+
+The result is saved to video/. Shot prompts and timing can be edited in
+storyboards/01.json. Video shot timing is estimated from prose length;
+the image transitions are not automatically sentence-aligned yet.
+
+**Full instructions: [VIDEO_GUIDE.md](VIDEO_GUIDE.md).**
+
 ## Validate
 
 ```powershell
@@ -117,6 +155,13 @@ book/part-05/*.md                   Written Part V manuscript
 book/part-06/*.md                   Written Part VI and epilogue
 tools/render_audio.py               Offline text-to-speech pipeline
 requirements-audio.txt              Piper dependency
+tools/film_lab.py                  Audio + images -> cinematic MP4
+tools/film_lab_gui.py              Desktop Tkinter GUI
+launch_film_lab.bat                Windows Film Lab launcher
+requirements-video.txt            Pillow for built-in graphic mode
+VIDEO_GUIDE.md                    Film Lab usage, image models and faces
+storyboards/README.md             Editable visual plans
+tests/test_film_lab.py             Storyboard / frame / FFmpeg tests
 tests/test_audio_pipeline.py        Parser / manifest / chunking tests
 audio/README.md                     Where generated narrations go
 ```
