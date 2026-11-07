@@ -11,6 +11,7 @@ This script does not connect to any hosted text-to-speech service.
 from __future__ import annotations
 
 import argparse
+from functools import lru_cache
 import json
 import re
 import shutil
@@ -126,23 +127,43 @@ def chunk_paragraphs(paragraphs: list[str], max_chars: int = 650) -> list[Speech
     return result
 
 
-def piper_wav(text: str, output_path: Path, executable: str, model: str) -> None:
-    """Run Piper as an external local process with text on stdin."""
+@lru_cache(maxsize=3)
+def load_piper_voice(model: str, use_cuda: bool):
+    """Load a Piper model once and reuse it for every passage and chapter."""
     try:
-        result = subprocess.run(
-            [executable, "--model", model, "--output_file", str(output_path)],
-            input=(text + "\n").encode("utf-8"),
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            check=False,
-        )
-    except FileNotFoundError as error:
+        from piper import PiperVoice
+    except ImportError as error:
         raise RuntimeError(
-            "Piper executable not found. Install with 'python -m pip install piper-tts'."
+            "Piper is not installed. Run 'python -m pip install -r requirements-audio.txt'."
         ) from error
-    if result.returncode != 0:
-        detail = result.stderr.decode("utf-8", errors="replace")[-1600:]
-        raise RuntimeError(f"Piper exited with code {result.returncode}: {detail}")
+
+    filename = Path(model)
+    if not filename.is_file():
+        named = model if model.endswith(".onnx") else model + ".onnx"
+        for candidate in (ROOT / named, Path.cwd() / named):
+            if candidate.is_file():
+                filename = candidate
+                break
+    if not filename.is_file():
+        raise FileNotFoundError(
+            f"Voice model {model!r} not found. Download it with "
+            "'python -m piper.download_voices en_US-lessac-medium' from "
+            "the Story2 repository directory, or pass --voice path/to/voice.onnx."
+        )
+    try:
+        return PiperVoice.load(str(filename), use_cuda=use_cuda)
+    except Exception as error:
+        raise RuntimeError(f"Could not load Piper voice {filename}: {error}") from error
+
+
+def piper_wav(text: str, output_path: Path, model: str, use_cuda: bool) -> None:
+    """Write local speech synthesis straight to a WAV using Piper's Python API."""
+    voice = load_piper_voice(model, use_cuda)
+    try:
+        with wave.open(str(output_path), "wb") as output:
+            voice.synthesize_wav(text, output)
+    except Exception as error:
+        raise RuntimeError(f"Piper synthesis failed for {output_path}: {error}") from error
     if not output_path.exists() or output_path.stat().st_size < 44:
         raise RuntimeError(f"Piper did not create a valid WAV: {output_path}")
 
@@ -201,7 +222,7 @@ def render_chapter(
     voice: str,
     output_format: str,
     max_chars: int,
-    piper_executable: str,
+    use_cuda: bool,
     ffmpeg_executable: str,
     overwrite: bool,
     dry_run: bool,
@@ -231,7 +252,7 @@ def render_chapter(
         pieces: list[Path] = []
         for index, chunk in enumerate(chunks):
             wave_path = work / f"chunk-{index:04d}.wav"
-            piper_wav(chunk.text, wave_path, piper_executable, voice)
+            piper_wav(chunk.text, wave_path, voice, use_cuda)
             pieces.append(wave_path)
             if index == 0 or (index + 1) % 10 == 0 or index == len(chunks) - 1:
                 print(f"  Synthesized {index + 1}/{len(chunks)} chunks", flush=True)
@@ -255,7 +276,7 @@ def main(argv: list[str] | None = None) -> int:
                         help="Piper voice name or a path to a local .onnx model")
     parser.add_argument("--format", choices=("mp3", "wav"), default="mp3")
     parser.add_argument("--max-chars", type=int, default=650)
-    parser.add_argument("--piper-executable", default="piper")
+    parser.add_argument("--cuda", action="store_true", help="Use onnxruntime-gpu when installed")
     parser.add_argument("--ffmpeg-executable", default="ffmpeg")
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--dry-run", action="store_true",
@@ -278,7 +299,7 @@ def main(argv: list[str] | None = None) -> int:
                 voice=args.voice,
                 output_format=args.format,
                 max_chars=args.max_chars,
-                piper_executable=args.piper_executable,
+                use_cuda=args.cuda,
                 ffmpeg_executable=args.ffmpeg_executable,
                 overwrite=args.overwrite,
                 dry_run=args.dry_run,
