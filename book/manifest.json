@@ -1,0 +1,76 @@
+{
+  "title": "The Distance Between Houses",
+  "subtitle": "An anatomy of a country that vanished",
+  "setting": "The fictional Republic of Liora and Northern Directorate of Veyr",
+  "parts": [
+    {
+      "id": "part-01",
+      "title": "The Summer of Open Doors",
+      "status": "published",
+      "chapters": [
+        {
+          "id": "01",
+          "title": "The Long Table",
+          "description": "Before the first fracture, Rowan Way knows how to share a street.",
+          "path": "book/part-01/01-the-long-table.md",
+          "audio": "audio/01-the-long-table.mp3",
+          "words": 1238
+        },
+        {
+          "id": "02",
+          "title": "The Department of Civic Weather",
+          "description": "Across the northern sea, a psychologist receives an assignment.",
+          "path": "book/part-01/02-the-department-of-civic-weather.md",
+          "audio": "audio/02-the-department-of-civic-weather.mp3",
+          "words": 1297
+        },
+        {
+          "id": "03",
+          "title": "A Very Ordinary Notification",
+          "description": "A mother's campaign becomes something larger than she intended.",
+          "path": "book/part-01/03-a-very-ordinary-notification.md",
+          "audio": "audio/03-a-very-ordinary-notification.mp3",
+          "words": 1045
+        },
+        {
+          "id": "04",
+          "title": "The First Silence",
+          "description": "Two brothers fail to say the one thing that might save them.",
+          "path": "book/part-01/04-the-first-silence.md",
+          "audio": "audio/04-the-first-silence.mp3",
+          "words": 1056
+        },
+        {
+          "id": "05",
+          "title": "The Shape of a Missing Person",
+          "description": "A librarian discovers that the absences are spreading.",
+          "path": "book/part-01/05-the-shape-of-a-missing-person.md",
+          "audio": "audio/05-the-shape-of-a-missing-person.mp3",
+          "words": 1298
+        }
+      ]
+    }
+  ],
+  "plannedParts": [
+    {
+      "id": "part-02",
+      "title": "The Names We Give Our Enemies"
+    },
+    {
+      "id": "part-03",
+      "title": "The Feed Between Us"
+    },
+    {
+      "id": "part-04",
+      "title": "The Country That Hated Itself"
+    },
+    {
+      "id": "part-05",
+      "title": "The Diagnosis"
+    },
+    {
+      "id": "part-06",
+      "title": "The Last Country"
+    }
+  ]
+}
