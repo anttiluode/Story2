@@ -170,13 +170,49 @@
           "words": 3945
         }
       ]
+    },
+    {
+      "id": "part-05",
+      "title": "The Diagnosis",
+      "status": "published",
+      "description": "Under the language of public safety, evidence is transformed into a symptom.",
+      "chapters": [
+        {
+          "id": "18",
+          "title": "The Public Disorder Act",
+          "description": "Real violence becomes the justification for powers that can reach the innocent.",
+          "path": "book/part-05/18-the-public-disorder-act.md",
+          "audio": "audio/18-the-public-disorder-act.mp3",
+          "words": 2917
+        },
+        {
+          "id": "19",
+          "title": "A Doctor's Signature",
+          "description": "One psychiatrist refuses to diagnose dissent; another signs the recommendation.",
+          "path": "book/part-05/19-a-doctors-signature.md",
+          "audio": "audio/19-a-doctors-signature.mp3",
+          "words": 3152
+        },
+        {
+          "id": "20",
+          "title": "The House With No Street Number",
+          "description": "Sela enters Eastmere, where the record describes her evidence as a symptom.",
+          "path": "book/part-05/20-the-house-with-no-street-number.md",
+          "audio": "audio/20-the-house-with-no-street-number.mp3",
+          "words": 3129
+        },
+        {
+          "id": "21",
+          "title": "The Calm Report",
+          "description": "Lev is pressured to retract, Eva loses her newspaper, and Veyr calls silence stability.",
+          "path": "book/part-05/21-the-calm-report.md",
+          "audio": "audio/21-the-calm-report.mp3",
+          "words": 3126
+        }
+      ]
     }
   ],
   "plannedParts": [
-    {
-      "id": "part-05",
-      "title": "The Diagnosis"
-    },
     {
       "id": "part-06",
       "title": "The Last Country"

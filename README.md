@@ -10,7 +10,7 @@ The planned ending is uncompromising: **Liora ceases to exist as a sovereign sta
 
 ## What is actually written?
 
-**Parts I–IV are published: Chapters 01–17.** Part IV, *The Country That Hated Itself*, adds four complete chapters (approximately 14,000 words) about the disputed election, the loss of shared civic infrastructure, a verified northern file, and the contested public disclosure. Parts V–VI are outlined in [DESIGN.md](DESIGN.md), but their prose has **not** yet been written. We publish the novel in parts, never passing off an outline as a finished book.
+**Parts I–V are published: Chapters 01–21.** Part V, *The Diagnosis*, adds four complete chapters (approximately 12,300 words) about emergency powers, the unethical medical assessment of Sela Orin, her confinement at Eastmere, and the apparent calm of a silenced republic. Part VI and the epilogue are still outlined in [DESIGN.md](DESIGN.md), **not written**. The ending remains planned, not yet published.
 
 | Chapter | Title |
 | --- | --- |
@@ -34,8 +34,13 @@ The planned ending is uncompromising: **Liora ceases to exist as a sovereign sta
 | 15 | A Republic of Small Rooms |
 | 16 | The File That Crossed the Sea |
 | 17 | Every Fact Has Two Histories |
+| **Part V** | **The Diagnosis** |
+| 18 | The Public Disorder Act |
+| 19 | A Doctor's Signature |
+| 20 | The House With No Street Number |
+| 21 | The Calm Report |
 
-The canonical chapter files live in `book/part-01/` through `book/part-04/`; the published table of contents lives in `book/manifest.json`.
+The canonical chapter files live in `book/part-01/` through `book/part-05/`; the published table of contents lives in `book/manifest.json`.
 
 ## Publish the reading website (GitHub Pages)
 
@@ -103,6 +108,7 @@ book/part-01/*.md                   Written Part I manuscript
 book/part-02/*.md                   Written Part II manuscript
 book/part-03/*.md                   Written Part III manuscript
 book/part-04/*.md                   Written Part IV manuscript
+book/part-05/*.md                   Written Part V manuscript
 tools/render_audio.py               Offline text-to-speech pipeline
 requirements-audio.txt              Piper dependency
 tests/test_audio_pipeline.py        Parser / manifest / chunking tests
