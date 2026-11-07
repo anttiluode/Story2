@@ -58,6 +58,45 @@ class FilmPlanTests(unittest.TestCase):
         self.assertEqual(pick_motif("The award ceremony presented a medal")[0], "medal")
 
 
+class NativeMediaToolRegressionTests(unittest.TestCase):
+    def test_wav_ignores_broken_python_ffprobe_shim(self):
+        """Windows Scripts/ffprobe.exe from panda3d-tools must not run."""
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as folder:
+            narration = Path(folder) / "01-the-long-table.wav"
+            with wave.open(str(narration), "wb") as output:
+                output.setnchannels(1)
+                output.setsampwidth(2)
+                output.setframerate(16000)
+                output.writeframes(b"\0\0" * 32000)
+            with patch("tools.film_lab.subprocess.run",
+                       side_effect=AssertionError("Executed broken ffprobe shim")):
+                self.assertAlmostEqual(ffprobe_duration(narration), 2.0)
+
+    def test_ffmpeg_shim_is_rejected_and_bundled_native_binary_used(self):
+        from unittest.mock import patch
+        from tools.film_lab import resolve_ffmpeg
+        import subprocess
+        import imageio_ffmpeg
+
+        def fake_run(cmd, **kwargs):
+            if cmd[0] == "ffmpeg":
+                return subprocess.CompletedProcess(
+                    cmd, 1, "", "ModuleNotFoundError: No module named 'panda3d_tools'"
+                )
+            if cmd[0] == "/a-real-ffmpeg":
+                return subprocess.CompletedProcess(cmd, 0, "ffmpeg version 7.0\n", "")
+            raise AssertionError("Unexpected binary probe: " + repr(cmd))
+        resolve_ffmpeg.cache_clear()
+        try:
+            with patch("tools.film_lab.subprocess.run", side_effect=fake_run), \
+                 patch.object(imageio_ffmpeg, "get_ffmpeg_exe",
+                              return_value="/a-real-ffmpeg"):
+                self.assertEqual(resolve_ffmpeg(), "/a-real-ffmpeg")
+        finally:
+            resolve_ffmpeg.cache_clear()
+
+
 @unittest.skipUnless(importlib.util.find_spec("PIL"), "Pillow not installed")
 class FilmImageTests(unittest.TestCase):
     def test_graphic_frame_has_correct_dimensions(self):

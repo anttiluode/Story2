@@ -20,6 +20,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import wave
 from pathlib import Path
 
 try:
@@ -69,21 +70,121 @@ def words(text: str) -> int:
     return max(1, len(text.split()))
 
 
-def ffprobe_duration(audio: Path, ffprobe: str = "ffprobe") -> float:
-    result = subprocess.run(
-        [ffprobe, "-v", "error", "-show_entries", "format=duration",
-         "-of", "default=noprint_wrappers=1:nokey=1", str(audio)],
-        capture_output=True, text=True, check=False,
-    )
-    if result.returncode:
-        raise RuntimeError("ffprobe failed: " + result.stderr[-1000:])
+@lru_cache(maxsize=8)
+def resolve_ffmpeg(executable: str = "ffmpeg") -> str:
+    """Find a REAL FFmpeg binary, ignoring broken Python ffmpeg.exe shims.
+
+    Some Windows pip installs put an ffmpeg.exe/ffprobe.exe Python entry
+    point in the Scripts directory ahead of the genuine multimedia binaries.
+    imageio-ffmpeg ships a self-contained native FFmpeg fallback.
+    """
+    def valid(command: str) -> bool:
+        try:
+            proc = subprocess.run(
+                [command, "-version"], capture_output=True, text=True,
+                check=False, timeout=12,
+            )
+        except (OSError, subprocess.TimeoutExpired):
+            return False
+        return proc.returncode == 0 and proc.stdout.lstrip().lower().startswith("ffmpeg version")
+
+    if valid(executable):
+        return executable
+    # A user-supplied binary must never silently be replaced.
+    if executable != "ffmpeg":
+        raise RuntimeError(
+            f"Not a functioning FFmpeg executable: {executable}. "
+            "Choose the actual FFmpeg binary with --ffmpeg."
+        )
     try:
-        seconds = float(result.stdout.strip())
-    except ValueError as exc:
-        raise RuntimeError("ffprobe could not read duration for " + str(audio)) from exc
+        import imageio_ffmpeg
+        bundled = imageio_ffmpeg.get_ffmpeg_exe()
+        if valid(bundled):
+            print("Using bundled native FFmpeg:", bundled, flush=True)
+            return bundled
+    except (ImportError, OSError, RuntimeError):
+        pass
+    raise RuntimeError(
+        "No working native FFmpeg found. A Python ffmpeg.exe shim might be "
+        "shadowing the real program. Install imageio-ffmpeg with "
+        "'python -m pip install -r requirements-video.txt', "
+        "or provide --ffmpeg with the path to a real FFmpeg executable."
+    )
+
+
+def _validated_duration(seconds: float, source: Path) -> float:
     if not math.isfinite(seconds) or seconds <= 0:
-        raise ValueError("Audio duration must be positive")
-    return seconds
+        raise ValueError(f"Invalid duration for {source}")
+    return float(seconds)
+
+
+def ffprobe_duration(audio: Path, ffprobe: str = "ffprobe") -> float:
+    """Get duration without relying on a potentially broken ffprobe.exe shim.
+
+    WAV uses the standard library; MP3/M4A/FLAC/MP4 use Mutagen.
+    Only when those formats can't be parsed do we try a native FFprobe or
+    the stderr metadata from the self-contained FFmpeg binary.
+    """
+    audio = Path(audio)
+    if not audio.is_file():
+        raise FileNotFoundError(f"No audio/video file: {audio}")
+    if audio.suffix.lower() == ".wav":
+        try:
+            with wave.open(str(audio), "rb") as reader:
+                rate = reader.getframerate()
+                if rate > 0:
+                    return _validated_duration(reader.getnframes() / rate, audio)
+        except (wave.Error, EOFError, OSError):
+            # Non-PCM or unusual WAV formats can be handled below.
+            pass
+    try:
+        from mutagen import File as AudioFile
+        details = AudioFile(str(audio))
+        if details is not None and details.info is not None:
+            return _validated_duration(details.info.length, audio)
+    except Exception:
+        # Malformed or unsupported audio: try the native media tools next.
+        pass
+    # Prefer native ffprobe only if its version banner proves it is genuine.
+    # Crucially, do not run the Python Scripts shim as the duration probe.
+    try:
+        version = subprocess.run(
+            [ffprobe, "-version"], capture_output=True, text=True,
+            check=False, timeout=8,
+        )
+        genuine = (version.returncode == 0 and
+                   version.stdout.lstrip().lower().startswith("ffprobe version"))
+    except (OSError, subprocess.TimeoutExpired):
+        genuine = False
+    if genuine:
+        result = subprocess.run(
+            [ffprobe, "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=noprint_wrappers=1:nokey=1", str(audio)],
+            capture_output=True, text=True, check=False, timeout=60,
+        )
+        if result.returncode == 0:
+            try:
+                return _validated_duration(float(result.stdout.strip()), audio)
+            except ValueError:
+                pass
+    # imageio-ffmpeg bundles ffmpeg but not always ffprobe. Native FFmpeg
+    # prints the media Duration in its -i diagnostic output.
+    ffmpeg = resolve_ffmpeg()
+    result = subprocess.run(
+        [ffmpeg, "-hide_banner", "-i", str(audio)],
+        capture_output=True, text=True, check=False, timeout=60,
+    )
+    match = re.search(r"Duration:\s*(\d+):(\d+):(\d+(?:\.\d+)?)",
+                      result.stderr + "\n" + result.stdout)
+    if match:
+        hours, minutes, seconds = match.groups()
+        return _validated_duration(int(hours)*3600 + int(minutes)*60 + float(seconds), audio)
+    raise RuntimeError(
+        f"Could not read duration for {audio}. Check that the narration "
+        "is a valid audio file, and install mutagen/imageio-ffmpeg from "
+        "requirements-video.txt."
+    )
+
 
 
 def source_scenes(markdown: str) -> list[list[str]]:
@@ -370,6 +471,9 @@ def load_local_pipeline(model: str, device: str):
 
 
 def run_checked(cmd: list[str]) -> None:
+    cmd = list(cmd)
+    if cmd and (cmd[0] == "ffmpeg" or cmd[0].lower().endswith(("/ffmpeg.exe", "\\ffmpeg.exe"))):
+        cmd[0] = resolve_ffmpeg(cmd[0])
     result=subprocess.run(cmd,capture_output=True,text=True,check=False)
     if result.returncode:
         raise RuntimeError(f"Command failed ({result.returncode}): {' '.join(cmd[:8])}\n{result.stderr[-1800:]}")
@@ -383,6 +487,7 @@ def render_video(plan: dict, *, audio: Path, output: Path, mode: str,
         raise ValueError("Video size must be even and at least 320x180")
     if fps < 10 or fps > 60:
         raise ValueError("fps must be between 10 and 60")
+    ffmpeg = resolve_ffmpeg(ffmpeg)
     if not audio.is_file():
         raise FileNotFoundError("Narration audio missing: " + str(audio))
     total=float(plan["audio_seconds"])

@@ -94,6 +94,13 @@ Options:
 
 This is a **single-narrator audiobook pipeline**. Dramatic multi-voice production and music/sound design are future enhancements. No generated audio has been auditioned yet.
 
+**Windows ffprobe fix:** If your Film Lab log mentions
+`ModuleNotFoundError: No module named 'panda3d_tools'`, update this repository
+and install `requirements-video.txt` in your current Film Lab Python
+environment. WAVs now use Python's built-in audio reader, and the renderer
+selects a real FFmpeg binary from `imageio-ffmpeg` if a broken Python
+`ffmpeg.exe` / `ffprobe.exe` script shadows it. No model re-download needed.
+
 ## NEW — render the entire novel with RTX 3060 AI images
 
 **Film Lab now renders all 24 chapters and the epilogue in one batch** and can join

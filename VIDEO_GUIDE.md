@@ -22,6 +22,33 @@ The story benefits from a deliberately faceless film language:
 The automatic prompts use these rules. Local image models can still produce
 inconsistent or visible faces, so inspect frames before publishing.
 
+## FIXED: Windows ffprobe.exe / panda3d_tools conflict
+
+Some Python packages install an unrelated **ffprobe.exe** script in the
+Python313\Scripts folder. That script imports panda3d_tools and can crash
+even though your narration is perfectly valid. The Film Lab no longer
+depends on that executable for ordinary duration detection:
+
+- WAV narration is timed with Python's built-in wave module.
+- MP3, M4A, FLAC and rendered MP4 metadata use Mutagen when possible.
+- If native media probing is needed, a candidate ffprobe is checked for
+  a real version banner before use.
+- For rendering, a broken ffmpeg.exe shim is ignored in favor of the
+  native binary supplied by imageio-ffmpeg.
+
+**After updating Story2**, install the small media dependencies into the
+same Python environment that launches Film Lab:
+
+    .\.film-venv\Scripts\python.exe -m pip install -r requirements-video.txt
+
+If you run Film Lab via Python 3.13 instead, use:
+
+    py -3.13 -m pip install -r requirements-video.txt
+
+No reason to uninstall panda3d, remove Python, or re-download DreamShaper.
+The GUI's **Check all narration** verifies filenames only; a real duration
+is first read during storyboard/video rendering.
+
 ## New: RTX 3060 / DreamShaper 8 / entire book
 
 The default AI model is **DreamShaper 8**, a Stable Diffusion 1.5 fine-tune
