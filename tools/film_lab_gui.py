@@ -20,13 +20,14 @@ class FilmGUI(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Story2 — Film Lab")
-        self.geometry("860x730")
+        self.geometry("980x790")
         self.minsize(680, 570)
         self.configure(bg="#121a25")
         self.chapter = tk.StringVar(value="01")
         self.audio = tk.StringVar(value="")
-        self.mode = tk.StringVar(value="graphic")
-        self.model = tk.StringVar(value="")
+        self.mode = tk.StringVar(value="diffusers")
+        self.model = tk.StringVar(value=str(ROOT / "models" / "dreamshaper-8"))
+        self.audio_dir = tk.StringVar(value=str(ROOT / "audio"))
         self.width = tk.StringVar(value="896")
         self.height = tk.StringVar(value="504")
         self.shots = tk.StringVar(value="0")
@@ -49,7 +50,7 @@ class FilmGUI(tk.Tk):
         body.pack(fill="both", expand=True)
         ttk.Label(body, text="THE DISTANCE BETWEEN HOUSES  /  FILM LAB",
                   font=("Segoe UI", 17, "bold")).pack(anchor="w")
-        ttk.Label(body, text="Narration + editable storyboards + faceless cinematic shots → MP4",
+        ttk.Label(body, text="One RTX 3060 · DreamShaper 8 · 24 chapters + epilogue → complete film",
                   foreground="#9cb1c2").pack(anchor="w", pady=(2, 14))
         row = ttk.Frame(body)
         row.pack(fill="x", pady=5)
@@ -59,7 +60,8 @@ class FilmGUI(tk.Tk):
         self.pick.pack(side="left", fill="x", expand=True)
         self.pick.current(0)
         self.pick.bind("<<ComboboxSelected>>", lambda *_: self.chapter.set(self.pick.get()[:2]))
-        self._field(body, "Narration MP3/WAV", self.audio, True, "audio")
+        self._field(body, "Single chapter audio", self.audio, True, "audio")
+        self._field(body, "Whole book audio folder", self.audio_dir, True, "audio-dir")
         options = ttk.Frame(body)
         options.pack(fill="x", pady=(12, 8))
         ttk.Label(options, text="Visual mode", width=18).pack(side="left")
@@ -67,7 +69,10 @@ class FilmGUI(tk.Tk):
                              ("diffusers", "Local image model"),
                              ("existing", "Use my images")]:
             ttk.Radiobutton(options, text=label, value=value, variable=self.mode).pack(side="left", padx=(0, 18))
-        self._field(body, "Local model folder", self.model, True, "model")
+        self._field(body, "Local AI model folder", self.model, True, "model")
+        ttk.Label(body, text="Install DreamShaper 8 once using the button below (internet on first download only). "
+                  "After that every shot is generated locally with FP16 model weights.",
+                  foreground="#a6b5c2", wraplength=900).pack(anchor="w")
         fmt = ttk.Frame(body)
         fmt.pack(fill="x", pady=8)
         ttk.Label(fmt, text="Width × height", width=18).pack(side="left")
@@ -77,13 +82,21 @@ class FilmGUI(tk.Tk):
         ttk.Label(fmt, text="   Shots (0 = automatic)").pack(side="left", padx=(16, 8))
         ttk.Entry(fmt, textvariable=self.shots, width=7).pack(side="left")
         act = ttk.Frame(body)
-        act.pack(fill="x", pady=(15, 8))
+        act.pack(fill="x", pady=(15, 6))
         self.buttons = []
-        for label, task in [("1. Make storyboard", "plan"),
-                            ("2. Preview video", "preview"),
-                            ("3. Render full chapter", "render"),
-                            ("Edit storyboard JSON", "edit")]:
+        for label, task in [("Download DreamShaper 8", "install"),
+                            ("Storyboard", "plan"),
+                            ("Preview one chapter", "preview"),
+                            ("Render one chapter", "render")]:
             button = ttk.Button(act, text=label, command=lambda t=task: self._start(t))
+            button.pack(side="left", padx=(0, 8))
+            self.buttons.append(button)
+        book = ttk.Frame(body)
+        book.pack(fill="x", pady=(4, 7))
+        for label, task in [("RENDER ENTIRE NOVEL (25 ENTRIES) + JOIN FILM", "batch"),
+                            ("Check all narration", "scan"),
+                            ("Edit storyboard JSON", "edit")]:
+            button = ttk.Button(book, text=label, command=lambda t=task: self._start(t))
             button.pack(side="left", padx=(0, 8))
             self.buttons.append(button)
         prev = ttk.Frame(body)
@@ -112,7 +125,9 @@ class FilmGUI(tk.Tk):
     def _browse(self, variable, kind):
         if kind == "audio":
             name = filedialog.askopenfilename(title="Choose chapter narration",
-                   filetypes=[("Audio", "*.mp3 *.wav *.m4a"), ("All files", "*.*")])
+                   filetypes=[("Audio", "*.mp3 *.wav *.m4a *.flac"), ("All files", "*.*")])
+        elif kind == "audio-dir":
+            name = filedialog.askdirectory(title="Select folder with all narrated chapters")
         else:
             name = filedialog.askdirectory(title="Choose local Diffusers model folder")
         if name:
@@ -160,30 +175,50 @@ class FilmGUI(tk.Tk):
             except OSError as error:
                 messagebox.showerror("Could not open file", str(error))
             return
-        try:
-            width, height, shots = int(self.width.get()), int(self.height.get()), int(self.shots.get())
-            seconds = float(self.preview.get())
-            if seconds <= 0:
-                raise ValueError("Preview seconds must be positive")
-        except ValueError as error:
-            messagebox.showerror("Invalid settings", str(error))
-            return
-        cmd = [sys.executable, str(ROOT / "tools" / "film_lab.py"),
-               "--chapter", ident, "--mode", self.mode.get(),
-               "--width", str(width), "--height", str(height),
-               "--shots", str(shots)]
-        if self.audio.get().strip():
-            cmd.extend(["--audio", self.audio.get().strip()])
-        if self.mode.get() == "diffusers":
-            if not self.model.get().strip():
-                messagebox.showerror("Local model needed", "Choose a local model directory.")
+        if task == "install":
+            if not messagebox.askyesno(
+                "Download AI image model",
+                "Download DreamShaper 8 FP16 weights from Hugging Face to your PC? "
+                "This needs several GB of disk space and an initial internet connection. "
+                "The model uses the CreativeML OpenRAIL-M license."
+            ):
                 return
-            cmd.extend(["--model", self.model.get().strip()])
-        if task == "plan":
-            cmd.append("--plan-only")
-        if task == "preview":
-            cmd.extend(["--preview-seconds", str(seconds),
-                        "--output", str(ROOT / "video" / f"{ident}-preview.mp4")])
+            cmd = [sys.executable, str(ROOT / "tools" / "model_setup.py"),
+                   "--download", "--path", self.model.get().strip()]
+        else:
+            try:
+                width, height, shots = int(self.width.get()), int(self.height.get()), int(self.shots.get())
+                seconds = float(self.preview.get())
+                if seconds <= 0 or shots < 0:
+                    raise ValueError("Preview seconds must be positive and shots >= 0")
+            except ValueError as error:
+                messagebox.showerror("Invalid settings", str(error))
+                return
+            if task in ("batch", "scan"):
+                cmd = [sys.executable, str(ROOT / "tools" / "film_batch.py"),
+                       "--audio-dir", self.audio_dir.get().strip(),
+                       "--model", self.model.get().strip(),
+                       "--mode", self.mode.get(),
+                       "--width", str(width), "--height", str(height),
+                       "--shots", str(shots)]
+                if task == "batch":
+                    cmd.extend(["--join", "--strict-audio"])
+                else:
+                    cmd.append("--dry-run")
+            else:
+                cmd = [sys.executable, str(ROOT / "tools" / "film_lab.py"),
+                       "--chapter", ident, "--mode", self.mode.get(),
+                       "--width", str(width), "--height", str(height),
+                       "--shots", str(shots)]
+                if self.audio.get().strip():
+                    cmd.extend(["--audio", self.audio.get().strip()])
+                if self.mode.get() == "diffusers":
+                    cmd.extend(["--model", self.model.get().strip()])
+                if task == "plan":
+                    cmd.append("--plan-only")
+                if task == "preview":
+                    cmd.extend(["--preview-seconds", str(seconds),
+                                "--output", str(ROOT / "video" / f"{ident}-preview.mp4")])
         self._toggle(True)
         self.status.set("Running " + task + "…")
         self._append("$ " + " ".join(f'"{x}"' if " " in x else x for x in cmd))
@@ -206,10 +241,14 @@ class FilmGUI(tk.Tk):
         self._toggle(False)
         if code:
             self.status.set("Failed. See log for details.")
+        elif task == "install":
+            self.status.set("DreamShaper 8 installed. Render locally, with CUDA when supported.")
         elif task == "plan":
             self.status.set("Storyboard ready. Edit its image prompts, or render a preview.")
+        elif task == "scan":
+            self.status.set("Audio scan complete. Check the log for any missing chapter recordings.")
         else:
-            self.status.set("Finished! MP4 is in the video/ folder.")
+            self.status.set("Render completed. MP4 files are in video/. Re-running resumes finished chapters.")
             if os.name == "nt":
                 try:
                     os.startfile(str(ROOT / "video"))

@@ -1,0 +1,7 @@
+# AI-only dependencies. Install compatible CUDA PyTorch FIRST.
+# PyTorch is separate because CUDA wheels use a different package index.
+diffusers>=0.35,<1
+transformers>=4.50,<5
+accelerate>=1.0
+safetensors>=0.4
+huggingface-hub>=0.31

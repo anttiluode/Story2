@@ -22,6 +22,82 @@ The story benefits from a deliberately faceless film language:
 The automatic prompts use these rules. Local image models can still produce
 inconsistent or visible faces, so inspect frames before publishing.
 
+## New: RTX 3060 / DreamShaper 8 / entire book
+
+The default AI model is **DreamShaper 8**, a Stable Diffusion 1.5 fine-tune
+with a CreativeML OpenRAIL-M license. The default FP16 image pipeline
+is designed for a 12 GB RTX 3060: **896 × 504**, 22 inference steps,
+one image at a time. Models are fetched only when you explicitly run
+setup; subsequent movie generation is offline. Real speed and VRAM use
+depend on the installed CUDA build, the model version, and other GPU
+applications. Close other GPU-heavy tools for a long job.
+
+**Windows installer (run once):** double-click install_film_lab.bat
+or execute:
+
+    powershell -ExecutionPolicy Bypass -File .\setup_film_lab_windows.ps1
+
+It creates a separate .film-venv with CUDA PyTorch, Pillow,
+Diffusers/Transformers and an FP16 DreamShaper 8 model in
+models/dreamshaper-8/. This downloads several gigabytes. The isolated
+environment avoids breaking another Torch installation. If the NVIDIA
+driver or CUDA wheel is incompatible, use the PyTorch Windows selector
+at https://pytorch.org/get-started/locally/ and the installer
+-CudaIndex option. Check that torch.cuda.is_available() prints True.
+
+Then double-click launch_film_lab.bat. Choose a folder containing your
+**25 actual narrated files**, press Check all narration, then choose
+RENDER ENTIRE NOVEL + JOIN FILM. The GUI requires all narration before
+starting a full run, avoiding a falsely labeled incomplete final video.
+
+Equivalent command line:
+
+    .\.film-venv\Scripts\python.exe tools\film_batch.py --audio-dir audio --join --strict-audio
+
+**Scan narration without rendering**:
+
+    .\.film-venv\Scripts\python.exe tools\film_batch.py --audio-dir "D:\My Narrated Novel" --dry-run
+
+The scanner searches that folder recursively for manifest filenames such
+as 01-the-long-table.mp3, or chapter-numbered names such as 01.mp3,
+02.wav, chapter-03.mp3 and so on. Ambiguous duplicate matches are an
+error, not a silent selection. If your narration is stored elsewhere,
+pass the whole directory containing those files.
+
+**Prepare all 25 storyboards before rendering**:
+
+    .\.film-venv\Scripts\python.exe tools\film_batch.py --plan-only
+
+**Preview only the first chapter with the AI model**:
+
+    .\.film-venv\Scripts\python.exe tools\film_batch.py --chapters 01 --audio-dir audio --preview-seconds 40
+
+**Lower the still count for faster first pass**:
+
+    .\.film-venv\Scripts\python.exe tools\film_batch.py --audio-dir audio --shots 12 --join --strict-audio
+
+Choose shots BEFORE building the storyboard or use --regenerate-plans
+to replace old auto-generated plans. The default is about one
+new image every 60 seconds. A full 7+ hour audiobook could require
+hundreds of images. A 3060 can perform this without cloud GPU rental,
+but it is not a quick one-minute job.
+
+**Recovery and files**: render each chapter first as an MP4 under video/.
+Finished images are cached under storyboards/frames-ai/ and finished
+video clips under video/.clips/. If the program or PC stops unexpectedly,
+run the exact same command again. Completed chapters and shots are reused.
+The final joined MP4 appears at:
+
+    video\The-Distance-Between-Houses-Full-Film.mp4
+
+You can create it after chapter rendering by rerunning with --join.
+The join refuses missing chapters. Large full-length video output can
+require several gigabytes of additional storage.
+
+The model is loaded once per batch, not 25 separate times. A text-to-image
+model creates painted stills, not a character-consistent talking-person
+video. The face-free prompts are intentional and can be edited in JSON.
+
 ## Run the desktop GUI on Windows
 
 Install FFmpeg and FFprobe on your PATH. From the Story2 folder:

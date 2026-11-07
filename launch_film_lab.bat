@@ -1,13 +1,16 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-where py >nul 2>nul
-if %errorlevel%==0 (
-  py -3.13 tools\film_lab_gui.py
+if exist ".film-venv\Scripts\python.exe" (
+    ".film-venv\Scripts\python.exe" tools\film_lab_gui.py
 ) else (
-  python tools\film_lab_gui.py
+    echo Film Lab AI environment is not installed yet.
+    echo Run install_film_lab.bat once to install CUDA PyTorch and DreamShaper 8.
+    echo Trying existing Python for graphic mode or already-installed AI models...
+    py -3.13 tools\film_lab_gui.py
 )
 if errorlevel 1 (
-  echo Install Pillow: py -3.13 -m pip install -r requirements-video.txt
-  pause
+    echo.
+    echo Check the errors above. For the one-time installer, run install_film_lab.bat.
+    pause
 )

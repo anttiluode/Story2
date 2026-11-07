@@ -94,6 +94,44 @@ Options:
 
 This is a **single-narrator audiobook pipeline**. Dramatic multi-voice production and music/sound design are future enhancements. No generated audio has been auditioned yet.
 
+## NEW — render the entire novel with RTX 3060 AI images
+
+**Film Lab now renders all 24 chapters and the epilogue in one batch** and can join
+the resulting chapter MP4s into a complete film. Its default image model is
+[DreamShaper 8](https://huggingface.co/Lykon/dreamshaper-8), a Stable Diffusion
+1.5 fine-tune loaded in **FP16** on an NVIDIA GPU. This is a realistic target
+for a 12 GB RTX 3060, at 896 × 504 output and one image at a time.
+
+**One-time Windows setup:** double-click `install_film_lab.bat`, or run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\setup_film_lab_windows.ps1
+```
+
+This creates an isolated `.film-venv`, installs CUDA-enabled PyTorch and
+Diffusers, and downloads the model weights once to `models/dreamshaper-8`.
+Review the model's **CreativeML OpenRAIL-M** license before publishing.
+Model weights are not in this GitHub repository. The first download requires
+internet and multiple gigabytes of disk space; subsequent renders are local.
+
+Launch `launch_film_lab.bat`. In the GUI choose **Whole book audio folder**
+and click **RENDER ENTIRE NOVEL (25 ENTRIES) + JOIN FILM**. It checks that
+all 25 narrated audio files exist before starting the complete run.
+
+Or use the command line:
+
+```powershell
+.\.film-venv\Scripts\python.exe tools\film_batch.py --audio-dir audio --join --strict-audio
+```
+
+The program reuses one GPU model, saves finished stills and video clips,
+skips already-rendered chapters on restart, and outputs each chapter plus
+`video/The-Distance-Between-Houses-Full-Film.mp4` when all are ready.
+A full audiobook is a substantial render. Use `--dry-run` to check filenames
+and `--chapters 01` to test the hardware first.
+
+**See [VIDEO_GUIDE.md](VIDEO_GUIDE.md) for the model, audio naming and batch options.**
+
 ## NEW — make illustrated film videos from narration
 
 **Story2 Film Lab** can turn any narrated chapter into a cinematic MP4.
@@ -156,6 +194,11 @@ book/part-06/*.md                   Written Part VI and epilogue
 tools/render_audio.py               Offline text-to-speech pipeline
 requirements-audio.txt              Piper dependency
 tools/film_lab.py                  Audio + images -> cinematic MP4
+tools/film_batch.py                Render all chapters, resume, join novel
+tools/model_setup.py               One-time local DreamShaper 8 installer
+install_film_lab.bat                Full AI environment + model Windows installer
+setup_film_lab_windows.ps1         Isolated CUDA/Diffusers install script
+requirements-video-ai.txt         Optional AI model dependencies
 tools/film_lab_gui.py              Desktop Tkinter GUI
 launch_film_lab.bat                Windows Film Lab launcher
 requirements-video.txt            Pillow for built-in graphic mode

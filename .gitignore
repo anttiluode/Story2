@@ -7,3 +7,8 @@ audio/*.wav
 # Rendered film clips and regenerable image-model frames
 video/
 storyboards/frames/
+
+# Large local AI model and isolated GPU environment
+models/
+.film-venv/
+storyboards/frames-ai/

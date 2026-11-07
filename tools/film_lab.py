@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+from functools import lru_cache
 import json
 import math
 import random
@@ -339,7 +340,9 @@ def diffusion_still(shot: dict, dest: Path, pipeline, torch, width: int,
     result.images[0].convert("RGB").save(dest)
 
 
+@lru_cache(maxsize=1)
 def load_local_pipeline(model: str, device: str):
+    """Reuse one GPU model for the complete 25-chapter batch."""
     if not model or not Path(model).exists():
         raise FileNotFoundError("--model must name an existing LOCAL Diffusers model directory or .safetensors file")
     try:
@@ -355,9 +358,14 @@ def load_local_pipeline(model: str, device: str):
         pipe=AutoPipelineForText2Image.from_single_file(location,torch_dtype=dtype,local_files_only=True)
     else:
         pipe=AutoPipelineForText2Image.from_pretrained(location,torch_dtype=dtype,local_files_only=True)
+    # SD 1.5 in FP16 fits in 12 GB at our default 768x432. If memory pressure
+    # occurs use --device cpu or lower resolution/close other GPU apps.
     pipe=pipe.to(device)
     if hasattr(pipe,"enable_vae_slicing"):
         pipe.enable_vae_slicing()
+    if device == "cuda":
+        torch.backends.cuda.matmul.allow_tf32 = True
+        print("Loaded local image model ONCE on", torch.cuda.get_device_name(0), flush=True)
     return pipe,torch
 
 
@@ -388,15 +396,30 @@ def render_video(plan: dict, *, audio: Path, output: Path, mode: str,
             timeline.append((shot,round(start*fps),round(end*fps)))
     if not timeline:
         raise ValueError("Storyboard does not contain shots in the render range")
+    # Keep AI and no-AI image caches separate. Prompt, seed and model changes
+    # invalidate AI frames rather than silently reusing earlier artwork.
+    def frame_for_shot(shot):
+        custom = image_path(shot)
+        if mode != "diffusers":
+            return custom
+        if not str(shot["image"]).replace("\\", "/").startswith("storyboards/frames/"):
+            return custom
+        variant = hashlib.sha256(
+            json.dumps([shot.get("prompt"),shot.get("negative_prompt"),shot.get("seed"),
+                        model,width,height,steps,guidance],sort_keys=True).encode("utf-8")
+        ).hexdigest()[:12]
+        return ROOT/"storyboards"/"frames-ai"/plan["chapter"]/f"shot-{int(shot['index']):03d}-{variant}.png"
     pipe=torch=None
-    if mode == "diffusers":
+    if mode == "diffusers" and any(
+        overwrite_frames or not frame_for_shot(shot).is_file() for shot,_,_ in timeline
+    ):
         pipe,torch=load_local_pipeline(model or "",device)
     output.parent.mkdir(parents=True,exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="story2-film-") as temp:
         work=Path(temp)
         clips=[]
         for i,(shot,start,end) in enumerate(timeline):
-            frame=image_path(shot)
+            frame=frame_for_shot(shot)
             if overwrite_frames or not frame.is_file():
                 if mode=="existing":
                     raise FileNotFoundError(f"Missing storyboard image for shot {shot['index']}: {frame}")
@@ -406,7 +429,19 @@ def render_video(plan: dict, *, audio: Path, output: Path, mode: str,
                 else:
                     diffusion_still(shot,frame,pipe,torch,width,height,steps,guidance,device)
             count=max(1,end-start)
-            clip=work/f"clip-{i:04d}.mp4"
+            # Resume after a crash: preserve finished per-shot video clips too.
+            # Settings + frame modification timestamp are part of the cache key.
+            source_stat=frame.stat()
+            cache_hash=hashlib.sha256(json.dumps([
+                str(frame.resolve()),source_stat.st_mtime_ns,source_stat.st_size,
+                width,height,fps,count
+            ]).encode("utf-8")).hexdigest()[:12]
+            clip=ROOT/"video"/".clips"/plan["chapter"]/f"shot-{int(shot['index']):03d}-{cache_hash}.mp4"
+            clip.parent.mkdir(parents=True,exist_ok=True)
+            if clip.is_file() and clip.stat().st_size > 1000:
+                clips.append(clip)
+                print(f"Shot {i+1}/{len(timeline)} cached",flush=True)
+                continue
             increment=min(.00035,.10/max(count,1))
             vf=(
                 f"scale={width}:{height}:force_original_aspect_ratio=increase,"

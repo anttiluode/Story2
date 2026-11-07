@@ -22,3 +22,7 @@ jobs:
         run: python tools/render_audio.py --dry-run
       - name: Validate the movie storyboard without narration
         run: python tools/film_lab.py --chapter 01 --plan-only
+      - name: Validate full-book audio discovery and batch CLI without audio
+        run: python tools/film_batch.py --dry-run
+      - name: Check local Python CLI script syntax
+        run: python -m compileall -q tools tests
