@@ -1,7 +1,7 @@
 # THE DISTANCE BETWEEN HOUSES
 ## Novel and audiobook master design
 
-**Form:** An original six-part, approximately 24-chapter contemporary political thriller with an epilogue, published as an audiobook-ready serial. Working length goal: 80,000–100,000 words. Parts are written and released in sequence. Parts I and II are written; later sections below are a writing plan, **not published chapters**.
+**Form:** An original six-part, approximately 24-chapter contemporary political thriller with an epilogue, published as an audiobook-ready serial. Working length goal: 80,000–100,000 words. Parts are written and released in sequence. Parts I–III are written; later sections below are a writing plan, **not published chapters**.
 
 **Setting:** An invented, recognizably contemporary world. North and south are geographic poles in the story, not proxies that correspond exactly to any real nations. The northern dictatorship, **the Directorate of Veyr**, is conducting open military aggression in Tarven and other neighboring borderlands. Its covert political campaign is aimed at **the Republic of Liora**, a southern democracy that sanctions the aggressor and supports its neighbors. Liora loses its sovereign existence by the end of the book.
 
@@ -34,6 +34,20 @@ Mental illness is not a shorthand for wrongness. The later psychiatric detention
 - **Dr. Oren Pell**, Lioran psychiatrist introduced later. Initially honest about the difference between unpopular beliefs and delusions. Under emergency law, his assessments become instruments of detention. He must decide whether to sign.
 - **Leaders of Liora's rival movements**, developed in Parts II–IV. They have local histories and independent agency. Some accept dishonest support; others do not know whose interests they serve. Their movements gradually become incentives that outlive the foreign funding.
 
+## Continuity notes after Part III
+
+- **Timeline:** Part I begins in late summer approximately six years before Liora's dissolution. Part II covers the following March–November and the second August supper. Part III runs from January through early May after that second supper. Exact calendar years are intentionally unstated in chapter headings.
+- **Arden home:** Tomas moves to the small back room; he and Mara are still married and live at the same address, with Ivo observing the separation. They are not divorced or formally separated. Their mutual affection has not disappeared; their willingness to risk being misunderstood has.
+- **Ivo and Tessa:** Both are around twelve, long-time friends since age five and football acquaintances. Their bridge project at school functions flawlessly after a repaired hinge, but their relationship is damaged following Civic Day. Ivo sends her `You were right about the hinge.`; Tessa sees it but does not reply. Do not turn this instantly into reconciliation.
+- **Tarven and Sami:** Sami is a child refugee from the continuing war in Tarven and Ivo's schoolmate; his house, crooked stairs, and absent grandmother are real memories in the fictional world. He is not a mouthpiece for one Lioran coalition.
+- **Joren Fenn:** Independent mechanic, father of Tessa, married to **Mira Fenn**. His programme *The Honest Hour* benefits from Public Voice Foundation support and increasingly rewards outrage. He has real qualms, does not knowingly have a proven foreign handler, and has avoided cameras at Mrs. Kade's memorial. His incomplete apology to Lev did not undo damage at the clinic.
+- **Dr. Irena Solvik:** Has a daughter **Elin** and six-year-old granddaughter **Leni**. She has accepted promotion to Deputy Commissioner for Civic Resilience while knowing the department's reported causal success is overstated. She has not yet received the final medal.
+- **Niko Rahl:** Lives separately from Irena's family; has a sister whose twelve-year-old son **Pael** receives a bicycle. Niko has insisted that data cannot prove every fracture was caused by Veyr. Do not conflate him with the narrator or make him an omniscient spy.
+- **Sela and Lev:** Still married, caring for one another, sometimes strained by Sela's increasing tendency to investigate everything. Sela maintains grounded uncertainty about causes; she is not irrational merely for documenting a possible pattern.
+- **Eva Maren and Samuel Rees:** The *Merrow Chronicle* published a careful funding investigation and a later correction; it has real financial risk. Eva has verified payments through Harborbridge to organizations linked with opposing political camps. She has **not** yet established ultimate ownership, a Veyr link, intentional coordination between recipients, or the effects of specific spending.
+- **Mrs. Kade:** Died at ninety-one of ordinary age-related illness in May. Her funeral is the last large shared neighborhood Sunday. Dain brings her inscribed childhood book, and the brothers almost agree to go fishing together, but Tomas's old suspicion revives. Their refusal remains their own responsibility.
+- **Future risk:** A later revelation must not retroactively make all domestic political disputes fake. Preserve genuine grievances and independent agency while showing how Veyr benefits from fragmentation. The Part IV election, the evidence crossing the sea, later abusive psychiatry, actual loss of sovereignty, and the psychologists' medals remain future plot events.
+
 ## Structural plan
 
 ### PART I — THE SUMMER OF OPEN DOORS (published; chapters 01–05)
@@ -49,11 +63,11 @@ Mental illness is not a shorthand for wrongness. The later psychiatric detention
 8. **A Man Worth Listening To.** Joren Fenn, a genuine mechanic with legitimate complaints, becomes the voice of the Honest Hour. His new audience and financial sponsors reshape what he is willing to say; Lev sees the clinic suffer.
 9. **The Ledger.** Eva verifies documents linking Harborbridge Civic Services to payments associated with both political sides. She has evidence of opaque financing, not proof of Veyr's role. Editor Samuel Rees fears the Chronicle cannot survive a legal fight. Sela's attendance books record a parallel withdrawal from civic life.
 
-### PART III — THE FEED BETWEEN US (planned; chapters 10–13)
-10. **The Separate Bedrooms.** Mara and Tomas no longer share the same story of their marriage. They sleep apart without agreeing on when separation began.
-11. **Children of the Borderless War.** Ivo learns to translate between political worlds. An argument at school breaks a friendship that had survived years.
-12. **Official Results.** The northern department claims more progress than the data warrants. Irena benefits from the exaggeration.
-13. **The Last Shared Sunday.** A death, a funeral, and a family dispute make estrangement tangible. A fragile opportunity for reconciliation passes.
+### PART III — THE FEED BETWEEN US (published; chapters 10–13)
+10. **The Separate Bedrooms.** Mara and Tomas become strangers in a house they still share. When the *Chronicle* publishes Eva's carefully documented funding story, incompatible retellings turn its findings into another marital conflict; Ivo watches his father move rooms.
+11. **Children of the Borderless War.** The school's Civic Day collapses under pressure from adult factions. Ivo and Tessa Fenn, who built a working drawbridge together, fall out over their fathers and the threat of public humiliation; Sami from war-torn Tarven gives them a different perspective.
+12. **Official Results.** Irena's ministry presentation uses genuine signs of declining trust while overstating what Veyr caused. Niko presses for correction, Irena accepts a promotion, and bureaucratic reward replaces professional caution.
+13. **The Last Shared Sunday.** Mrs. Kade dies of old age, not political conflict. At her memorial the town manages to eat, mourn, and listen together. Tomas and Dain almost reconcile, but the old patterns return before either accepts the invitation to go fishing.
 
 ### PART IV — THE COUNTRY THAT HATED ITSELF (planned; chapters 14–17)
 14. **The Election Nobody Could Lose.** The result has legal force but loses broad social legitimacy.
@@ -93,4 +107,4 @@ Each released chapter is a UTF-8 Markdown file under `book/part-XX/`. The JSON m
 
 The root `index.html` site uses only static HTML/CSS/JavaScript and works on GitHub Pages with no database, API key, or server. Local Python audio rendering uses Piper, an open-source local TTS engine, and optional FFmpeg. The narrator reads the Markdown text, not a paraphrase. Each chapter can be rendered separately and published as `audio/<chapter-slug>.mp3`. The site checks for audio availability and shows a clear fallback while no audio file exists.
 
-**Draft status as of 2026-11-07:** Parts I–II, Chapters 01–09, written; Parts III–VI, Chapters 10–24 and epilogue, outlined and unwritten. Never describe them as finished.
+**Draft status as of 2026-11-07:** Parts I–III, Chapters 01–13, written; Parts IV–VI, Chapters 14–24 and epilogue, outlined and unwritten. Never describe them as finished.

@@ -90,13 +90,49 @@
           "words": 3348
         }
       ]
+    },
+    {
+      "id": "part-03",
+      "title": "The Feed Between Us",
+      "status": "published",
+      "description": "A house divided, children who learn silence, and a final shared Sunday.",
+      "chapters": [
+        {
+          "id": "10",
+          "title": "The Separate Bedrooms",
+          "description": "Mara and Tomas remain married while their house acquires a border.",
+          "path": "book/part-03/10-the-separate-bedrooms.md",
+          "audio": "audio/10-the-separate-bedrooms.mp3",
+          "words": 2903
+        },
+        {
+          "id": "11",
+          "title": "Children of the Borderless War",
+          "description": "Ivo and Tessa inherit an argument that was never theirs to begin with.",
+          "path": "book/part-03/11-children-of-the-borderless-war.md",
+          "audio": "audio/11-children-of-the-borderless-war.mp3",
+          "words": 3481
+        },
+        {
+          "id": "12",
+          "title": "Official Results",
+          "description": "Irena receives a promotion for claims even her own analyst cannot support.",
+          "path": "book/part-03/12-official-results.md",
+          "audio": "audio/12-official-results.mp3",
+          "words": 3100
+        },
+        {
+          "id": "13",
+          "title": "The Last Shared Sunday",
+          "description": "At Mrs. Kade's funeral, the neighborhood remembers how to be together.",
+          "path": "book/part-03/13-the-last-shared-sunday.md",
+          "audio": "audio/13-the-last-shared-sunday.mp3",
+          "words": 4029
+        }
+      ]
     }
   ],
   "plannedParts": [
-    {
-      "id": "part-03",
-      "title": "The Feed Between Us"
-    },
     {
       "id": "part-04",
       "title": "The Country That Hated Itself"

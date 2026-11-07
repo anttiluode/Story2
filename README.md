@@ -10,7 +10,7 @@ The planned ending is uncompromising: **Liora ceases to exist as a sovereign sta
 
 ## What is actually written?
 
-**Parts I and II are published: Chapters 01–09.** Part II, *The Names We Give Our Enemies*, adds four complete chapters (approximately 12,100 words) to the five-chapter opening installment. Parts III–VI are outlined in [DESIGN.md](DESIGN.md), but their prose has **not** yet been written. We publish the novel in parts, never passing off an outline as a finished book.
+**Parts I–III are published: Chapters 01–13.** Part III, *The Feed Between Us*, adds four complete chapters (approximately 13,500 words) to the nine-chapter novel so far. Parts IV–VI are outlined in [DESIGN.md](DESIGN.md), but their prose has **not** yet been written. We publish the novel in parts, never passing off an outline as a finished book.
 
 | Chapter | Title |
 | --- | --- |
@@ -24,8 +24,13 @@ The planned ending is uncompromising: **Liora ceases to exist as a sovereign sta
 | 07 | The Second Table |
 | 08 | A Man Worth Listening To |
 | 09 | The Ledger |
+| **Part III** | **The Feed Between Us** |
+| 10 | The Separate Bedrooms |
+| 11 | Children of the Borderless War |
+| 12 | Official Results |
+| 13 | The Last Shared Sunday |
 
-The canonical chapter files live in `book/part-01/` and `book/part-02/`; the published table of contents lives in `book/manifest.json`.
+The canonical chapter files live in `book/part-01/`, `book/part-02/`, and `book/part-03/`; the published table of contents lives in `book/manifest.json`.
 
 ## Publish the reading website (GitHub Pages)
 
@@ -91,6 +96,7 @@ DESIGN.md                           Plot, cast, themes, all six parts
 book/manifest.json                  Published chapter index
 book/part-01/*.md                   Written Part I manuscript
 book/part-02/*.md                   Written Part II manuscript
+book/part-03/*.md                   Written Part III manuscript
 tools/render_audio.py               Offline text-to-speech pipeline
 requirements-audio.txt              Piper dependency
 tests/test_audio_pipeline.py        Parser / manifest / chunking tests
