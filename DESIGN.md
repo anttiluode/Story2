@@ -1,7 +1,7 @@
 # THE DISTANCE BETWEEN HOUSES
 ## Novel and audiobook master design
 
-**Form:** An original six-part, approximately 24-chapter contemporary political thriller with an epilogue, published as an audiobook-ready serial. Working length goal: 80,000–100,000 words. Parts are written and released in sequence. Parts I–V are written; Part VI and the epilogue below are a writing plan, **not published chapters**.
+**Form:** A complete original six-part contemporary political thriller: 24 chapters and an epilogue, published as an audiobook-ready text serial. The earlier working length goal was 80,000–100,000 words; this completed edition is shorter. All six parts, including the epilogue, are written and published.
 
 **Setting:** An invented, recognizably contemporary world. North and south are geographic poles in the story, not proxies that correspond exactly to any real nations. The northern dictatorship, **the Directorate of Veyr**, is conducting open military aggression in Tarven and other neighboring borderlands. Its covert political campaign is aimed at **the Republic of Liora**, a southern democracy that sanctions the aggressor and supports its neighbors. Liora loses its sovereign existence by the end of the book.
 
@@ -108,12 +108,12 @@ Mental illness is not a shorthand for wrongness. The later psychiatric detention
 20. **The House With No Street Number.** Sela is transferred to Eastmere Regional Evaluation Centre under emergency powers, where a file misstates her ordinary, evidence-based beliefs. Her wife Lev and lawyer Aron Vale challenge the order, and the court requests further review without ordering immediate release. A few related public-order referrals target people who raised substantiated concerns. Sela befriends Lina, who has genuine psychiatric care needs.
 21. **The Calm Report.** The Chronicle suspends print publication under a convergence of commercial costs, legal risk, and administrative restrictions; its lawful reporting is harder to sustain. Lev refuses to retract her criticism of Sela's detention and loses her supervisory role pending review, but retains her clinical identity. Oren continues treating patients and documents his objection. Sela remains confined. Irena signs a report presenting reduced civic participation as stabilization; Kest begins planning for Liora's formal dependency and eventual loss of sovereignty, which has NOT occurred yet.
 
-### PART VI — THE LAST COUNTRY (planned; chapters 22–24)
-22. **The Map With Fewer Names.** Under emergency governance and external pressure, the republic's sovereignty is formally dissolved, its territory reorganized under dependent administrations. This is a concrete event, not a metaphor.
-23. **The Medals.** Northern state ceremony. Irena and her peers are publicly honored for strategic achievements under euphemistic names. The state claims the country was saved from itself.
-24. **The Empty Table.** Return to Rowan Way. The absence is total but rendered in ordinary objects. Ivo sees the new flag and the old photograph; the land exists, the republic does not.
+### PART VI — THE LAST COUNTRY (published; chapters 22–24 and epilogue)
+22. **The Map With Fewer Names.** Three years after Part V, the failed caretaker system and external northern leverage culminate in the Compact of Civic Administration. A narrowly approved legislative vote is challenged by the highest court, whose objections are not enforced. Borders, currency, foreign policy and security pass to the northern-chaired Joint Continuity Council. Liora's flag comes down and its sovereign legislature is suspended; the Republic of Liora ceases to exist as a sovereign state.
+23. **The Medals.** At an anniversary ceremony in Veyr, Irena Solvik, fellow Civic Weather psychologists Talin Vecht and Rysa Fal, and Director Kest receive national honors. The official record calls their work peaceful stabilization. Niko remains under restricted administrative review; his role as an evidentiary whistleblower is omitted. Irena refuses to speak honestly to a junior colleague or her daughter Elin.
+24. **The Empty Table.** At seventeen, Ivo fills out identity papers for the Southern Administrative Territory while rejecting the idea that survival means agreement. Mara and Tomas now live apart; Dain and Tomas still have not reconciled. Lev keeps a second plate for Sela. Ivo and Tessa exchange ordinary words without a grand reconciliation. The original six tables are gone; Ivo briefly sets up Sela's repaired white replacement, then folds it away. He and Tomas drink tea beside the old supper photograph.
 
-**Epilogue — The Official Record.** The award citation declares the work complete. In a psychiatric ward, someone who warned the country still waits for her evidence to be heard. No omniscient narrator excuses the winners.
+**Epilogue — The Official Record (manifest ID 25).** The official archive celebrates the northern stabilizers while another branch of the administration keeps Sela confined for insisting on the same now-public history. Her next review misrecords her evidence-based question; Aron continues his appeals, Lev continues visiting, and Sela keeps a photograph of Ivo with the repaired table. The Directorate's record reads COMPLETE. The wrongful detention remains unresolved.
 
 ## Writing rules
 
@@ -134,4 +134,4 @@ Each released chapter is a UTF-8 Markdown file under `book/part-XX/`. The JSON m
 
 The root `index.html` site uses only static HTML/CSS/JavaScript and works on GitHub Pages with no database, API key, or server. Local Python audio rendering uses Piper, an open-source local TTS engine, and optional FFmpeg. The narrator reads the Markdown text, not a paraphrase. Each chapter can be rendered separately and published as `audio/<chapter-slug>.mp3`. The site checks for audio availability and shows a clear fallback while no audio file exists.
 
-**Draft status as of 2026-11-07:** Parts I–V, Chapters 01–21, written; Part VI, Chapters 22–24 and epilogue, outlined and unwritten. Never describe them as finished.
+**Completion status as of 2026-11-07:** The complete prose is published: Parts I–VI, Chapters 01–24 and the epilogue (manifest ID 25). Narration is prepared for local rendering but no generated recordings have been included in this edition.

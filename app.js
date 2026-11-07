@@ -95,7 +95,7 @@ function renderChapterCards() {
       button.dataset.chapter = chapter.id;
       const n = document.createElement("span");
       n.className = "chapter-num";
-      n.textContent = "CHAPTER " + chapter.id;
+      n.textContent = chapter.kind === "epilogue" ? "EPILOGUE" : "CHAPTER " + chapter.id;
       const title = document.createElement("h3");
       title.textContent = chapter.title;
       const description = document.createElement("p");
@@ -123,7 +123,7 @@ function renderTOC() {
     button.className = "toc-entry" + (ch.id === state.current ? " active" : "");
     button.dataset.chapter = ch.id;
     const number = document.createElement("span");
-    number.textContent = "CHAPTER " + ch.id;
+    number.textContent = ch.kind === "epilogue" ? "EPILOGUE" : "CHAPTER " + ch.id;
     button.append(number, document.createTextNode(ch.title));
     target.append(button);
   }
@@ -173,15 +173,15 @@ async function showChapter(id) {
   state.current = chapter.id;
   $("home-view").hidden = true;
   $("reader-view").hidden = false;
-  $("chapter-kicker").textContent = "PART " + chapter.partNumber + " · CHAPTER " + chapter.id;
+  $("chapter-kicker").textContent = "PART " + chapter.partNumber + " · " + (chapter.kind === "epilogue" ? "EPILOGUE" : "CHAPTER " + chapter.id);
   $("chapter-title").textContent = chapter.title;
   $("chapter-byline").textContent = "The Distance Between Houses · " + chapter.words.toLocaleString() + " words";
   $("chapter-body").textContent = "Loading chapter…";
   $("previous-chapter").disabled = state.chapters.indexOf(chapter) === 0;
   $("next-chapter").disabled = state.chapters.indexOf(chapter) === state.chapters.length - 1;
-  $("next-chapter").textContent = $("next-chapter").disabled ? "More chapters forthcoming" : "Next chapter →";
+  $("next-chapter").textContent = $("next-chapter").disabled ? "The End" : (chapter.id === "24" ? "Read the epilogue →" : "Next chapter →");
   $("next-chapter").disabled = state.chapters.indexOf(chapter) === state.chapters.length - 1;
-  $("footer-progress").textContent = "READING CHAPTER " + chapter.id;
+  $("footer-progress").textContent = chapter.kind === "epilogue" ? "READING THE EPILOGUE" : "READING CHAPTER " + chapter.id;
   document.title = chapter.title + " — The Distance Between Houses";
   saveSetting("story2-last-chapter", chapter.id);
   renderTOC();

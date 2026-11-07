@@ -24,14 +24,14 @@ from tools.render_audio import (
 class ManuscriptTests(unittest.TestCase):
     def test_published_manifest_points_to_existing_files(self):
         chapters = get_chapters()
-        self.assertEqual([c["id"] for c in chapters], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"])
+        self.assertEqual([c["id"] for c in chapters], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"])
         self.assertTrue(all((ROOT / chapter["path"]).is_file() for chapter in chapters))
         self.assertTrue(all(chapter["audio"].endswith(".mp3") for chapter in chapters))
 
     def test_planned_parts_are_not_published(self):
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-        self.assertEqual(len(manifest["parts"]), 5)
-        self.assertEqual(len(manifest["plannedParts"]), 1)
+        self.assertEqual(len(manifest["parts"]), 6)
+        self.assertEqual(len(manifest["plannedParts"]), 0)
 
     def test_chapter_paths_remain_in_their_declared_part(self):
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
@@ -42,8 +42,18 @@ class ManuscriptTests(unittest.TestCase):
                     (part["id"], chapter["path"]),
                 )
                 raw = (ROOT / chapter["path"]).read_text(encoding="utf-8")
-                self.assertTrue(raw.startswith("# Chapter "), chapter["path"])
+                self.assertTrue(raw.startswith("# Epilogue — " if chapter.get("kind") == "epilogue" else "# Chapter "), chapter["path"])
                 self.assertIn(chapter["title"], raw.splitlines()[0])
+
+    def test_complete_book_has_24_chapters_and_one_epilogue(self):
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        self.assertEqual(len(manifest["parts"]), 6)
+        all_entries = [c for part in manifest["parts"] for c in part["chapters"]]
+        self.assertEqual([entry["id"] for entry in all_entries[:-1]], [f"{i:02d}" for i in range(1, 25)])
+        self.assertEqual(all_entries[-1]["id"], "25")
+        self.assertEqual(all_entries[-1]["kind"], "epilogue")
+        self.assertEqual(all_entries[-1]["title"], "The Official Record")
+        self.assertEqual(manifest["plannedParts"], [])
 
     def test_markdown_removes_markup_but_not_narrative(self):
         source = "# Chapter One — A Name\n\n*Merrow, late summer.*\n\nThe **first** day was *warm*.\n\n***\n\nShe said, \"Yes.\""

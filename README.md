@@ -1,16 +1,16 @@
 # The Distance Between Houses
 
-**Story2 — an original serialized political thriller and audiobook project.**
+**Story2 — a complete original political thriller, twenty-four chapters and an epilogue, with a local audiobook production pipeline.**
 
 > They did not conquer the country by crossing its borders. They persuaded its people that their neighbors were the enemy.
 
 The story takes place in the fictional Republic of **Liora** in the south, and the expansionist **Northern Directorate of Veyr**. A neighborhood lives its life while a distant state department studies how a society can lose the trust required to remain a country.
 
-The planned ending is uncompromising: **Liora ceases to exist as a sovereign state. Whistleblowers are wrongfully institutionalized. The psychologists directing the northern project receive medals.** This is fiction, not an accusation about a named contemporary nation or a claim that all real polarization is engineered.
+The ending is uncompromising: **Liora ceases to exist as a sovereign state. Whistleblowers are wrongfully institutionalized. The psychologists directing the northern project receive medals.** This is fiction, not an accusation about a named contemporary nation or a claim that all real polarization is engineered.
 
 ## What is actually written?
 
-**Parts I–V are published: Chapters 01–21.** Part V, *The Diagnosis*, adds four complete chapters (approximately 12,300 words) about emergency powers, the unethical medical assessment of Sela Orin, her confinement at Eastmere, and the apparent calm of a silenced republic. Part VI and the epilogue are still outlined in [DESIGN.md](DESIGN.md), **not written**. The ending remains planned, not yet published.
+**The complete six-part novel is published: Chapters 01–24 plus the epilogue (*The Official Record*).** Part VI, *The Last Country*, follows the legal dissolution of Liora's sovereignty, awards the northern psychologists their medals, and returns to Rowan Way. The epilogue preserves the uncorrected record of Sela's wrongful confinement. [DESIGN.md](DESIGN.md) contains the cast, writing rules, completed chapter structure, and continuity notes. The prose is complete; locally generated audio files are not yet included.
 
 | Chapter | Title |
 | --- | --- |
@@ -39,8 +39,13 @@ The planned ending is uncompromising: **Liora ceases to exist as a sovereign sta
 | 19 | A Doctor's Signature |
 | 20 | The House With No Street Number |
 | 21 | The Calm Report |
+| **Part VI** | **The Last Country** |
+| 22 | The Map With Fewer Names |
+| 23 | The Medals |
+| 24 | The Empty Table |
+| **Epilogue (audio ID 25)** | **The Official Record** |
 
-The canonical chapter files live in `book/part-01/` through `book/part-05/`; the published table of contents lives in `book/manifest.json`.
+The canonical chapter files live in `book/part-01/` through `book/part-06/`; the published table of contents lives in `book/manifest.json`. The epilogue is the last entry of Part VI with audio/reader ID `25` so the existing offline audio pipeline can render it.
 
 ## Publish the reading website (GitHub Pages)
 
@@ -78,7 +83,7 @@ For the **smaller, website-friendly MP3 files**, install FFmpeg, make sure `ffmp
 The tool writes a separate chapter file under `audio/`, for example `audio/01-the-long-table.mp3`. Commit or upload those MP3 files if you want public listening on GitHub Pages. They are **not included yet** in the repository; the site will accurately say narration has not been published until a file appears.
 
 Options:
-- `--chapter 01` (repeat to select multiple chapters), or `--all`.
+- `--chapter 01` (repeat to select multiple chapters), `--chapter 25` for the epilogue, or `--all` to narrate the complete book.
 - `--voice en_US-lessac-medium` or `--voice path\to\custom-voice.onnx`.
 - `--format wav` requires only Piper; `--format mp3` also needs FFmpeg.
 - `--dry-run` previews the chapters and text chunks without Piper or FFmpeg.
@@ -109,6 +114,7 @@ book/part-02/*.md                   Written Part II manuscript
 book/part-03/*.md                   Written Part III manuscript
 book/part-04/*.md                   Written Part IV manuscript
 book/part-05/*.md                   Written Part V manuscript
+book/part-06/*.md                   Written Part VI and epilogue
 tools/render_audio.py               Offline text-to-speech pipeline
 requirements-audio.txt              Piper dependency
 tests/test_audio_pipeline.py        Parser / manifest / chunking tests

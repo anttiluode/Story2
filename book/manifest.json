@@ -210,12 +210,48 @@
           "words": 3126
         }
       ]
-    }
-  ],
-  "plannedParts": [
+    },
     {
       "id": "part-06",
-      "title": "The Last Country"
+      "title": "The Last Country",
+      "status": "published",
+      "description": "The republic disappears; its destroyers receive honors; the witnesses remain.",
+      "chapters": [
+        {
+          "id": "22",
+          "title": "The Map With Fewer Names",
+          "description": "The Compact formally transfers Liora's sovereign powers to a northern-led council.",
+          "path": "book/part-06/22-the-map-with-fewer-names.md",
+          "audio": "audio/22-the-map-with-fewer-names.mp3",
+          "words": 2981
+        },
+        {
+          "id": "23",
+          "title": "The Medals",
+          "description": "The psychologists who helped weaken a country are publicly rewarded.",
+          "path": "book/part-06/23-the-medals.md",
+          "audio": "audio/23-the-medals.mp3",
+          "words": 3021
+        },
+        {
+          "id": "24",
+          "title": "The Empty Table",
+          "description": "At seventeen, Ivo returns to the street where the country once sat together.",
+          "path": "book/part-06/24-the-empty-table.md",
+          "audio": "audio/24-the-empty-table.mp3",
+          "words": 3207
+        },
+        {
+          "id": "25",
+          "kind": "epilogue",
+          "title": "The Official Record",
+          "description": "One official history declares victory while Sela remains confined.",
+          "path": "book/part-06/25-epilogue-the-official-record.md",
+          "audio": "audio/25-epilogue-the-official-record.mp3",
+          "words": 1641
+        }
+      ]
     }
-  ]
+  ],
+  "plannedParts": []
 }
