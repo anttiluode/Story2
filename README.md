@@ -37,7 +37,7 @@ To test locally, run `python -m http.server 8000` in the repository directory, t
 
 ## Create audiobook narration on your Windows PC
 
-The Python tool renders chapters locally using **Piper TTS**. It does **not** require LM Studio, a hosted model, or an account. The initial installation and voice download need an internet connection; inference after setup is local. Review a voice model's license before publishing recordings made with it.
+The Python tool renders chapters locally using **Piper TTS**, loading the voice model once per run rather than reloading it for each text chunk. It does **not** require LM Studio, a hosted model, or an account. The initial installation and voice download need an internet connection; inference after setup is local. Review a voice model's license before publishing recordings made with it.
 
 PowerShell:
 
@@ -64,7 +64,8 @@ Options:
 - `--dry-run` previews the chapters and text chunks without Piper or FFmpeg.
 - `--overwrite` replaces an existing audio output; otherwise it is skipped.
 - `--max-chars 650` changes chunk size if your voice needs shorter input.
-- `--piper-executable` and `--ffmpeg-executable` allow custom binary locations.
+- `--cuda` enables GPU synthesis when the compatible `onnxruntime-gpu` package and drivers are installed; CPU works by default.
+- `--ffmpeg-executable` allows a custom FFmpeg binary location.
 
 This is a **single-narrator audiobook pipeline**. Dramatic multi-voice production and music/sound design are future enhancements. No generated audio has been auditioned yet.
 
