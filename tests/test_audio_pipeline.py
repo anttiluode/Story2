@@ -24,14 +24,14 @@ from tools.render_audio import (
 class ManuscriptTests(unittest.TestCase):
     def test_published_manifest_points_to_existing_files(self):
         chapters = get_chapters()
-        self.assertEqual([c["id"] for c in chapters], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13"])
+        self.assertEqual([c["id"] for c in chapters], ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17"])
         self.assertTrue(all((ROOT / chapter["path"]).is_file() for chapter in chapters))
         self.assertTrue(all(chapter["audio"].endswith(".mp3") for chapter in chapters))
 
     def test_planned_parts_are_not_published(self):
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-        self.assertEqual(len(manifest["parts"]), 3)
-        self.assertEqual(len(manifest["plannedParts"]), 3)
+        self.assertEqual(len(manifest["parts"]), 4)
+        self.assertEqual(len(manifest["plannedParts"]), 2)
 
     def test_chapter_paths_remain_in_their_declared_part(self):
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))

@@ -1,7 +1,7 @@
 # THE DISTANCE BETWEEN HOUSES
 ## Novel and audiobook master design
 
-**Form:** An original six-part, approximately 24-chapter contemporary political thriller with an epilogue, published as an audiobook-ready serial. Working length goal: 80,000–100,000 words. Parts are written and released in sequence. Parts I–III are written; later sections below are a writing plan, **not published chapters**.
+**Form:** An original six-part, approximately 24-chapter contemporary political thriller with an epilogue, published as an audiobook-ready serial. Working length goal: 80,000–100,000 words. Parts are written and released in sequence. Parts I–IV are written; later sections below are a writing plan, **not published chapters**.
 
 **Setting:** An invented, recognizably contemporary world. North and south are geographic poles in the story, not proxies that correspond exactly to any real nations. The northern dictatorship, **the Directorate of Veyr**, is conducting open military aggression in Tarven and other neighboring borderlands. Its covert political campaign is aimed at **the Republic of Liora**, a southern democracy that sanctions the aggressor and supports its neighbors. Liora loses its sovereign existence by the end of the book.
 
@@ -48,6 +48,20 @@ Mental illness is not a shorthand for wrongness. The later psychiatric detention
 - **Mrs. Kade:** Died at ninety-one of ordinary age-related illness in May. Her funeral is the last large shared neighborhood Sunday. Dain brings her inscribed childhood book, and the brothers almost agree to go fishing together, but Tomas's old suspicion revives. Their refusal remains their own responsibility.
 - **Future risk:** A later revelation must not retroactively make all domestic political disputes fake. Preserve genuine grievances and independent agency while showing how Veyr benefits from fragmentation. The Part IV election, the evidence crossing the sea, later abusive psychiatry, actual loss of sovereignty, and the psychologists' medals remain future plot events.
 
+## Continuity notes after Part IV
+
+- **Election:** Renewal leader **Garran Holt** wins the largest single party tally, but no majority. The coalition led by Common Future's **Nera Valen** forms a **legally valid** government with the Civic Moderates and Free Coast. Verified counting errors and localized misconduct are dealt with through legal channels, not demonstrated to overturn the result. Citizens can dispute politics legitimately; Veyr cannot claim to have determined the vote.
+- **Public trust:** Liora's courts, ministries and elections continue operating, but losing factions increasingly refuse to regard government as legitimate. The fracture is political, social and economic—not a fabricated vote count or total collapse yet.
+- **Merrow services:** Bakery upstairs meeting room closes for mixed insurance, repair and social reasons. Railway loses skilled workers. Clinic transfers suffer coordination failures. Repair Circle loses lease after a genuine sponsorship dispute. The *Chronicle* downsizes; Eva and Samuel retain scrupulous standards under financial pressure.
+- **Dain and Tomas:** They work together on a late-night power/railway incident and restore power to sheltered housing, but revert to old grievances after partisan posts misuse their photograph. They have not reconciled.
+- **Children:** Ivo is roughly thirteen. His relationship with Tessa remains strained despite their earlier bridge project and his message about the hinge. He builds a hand-cranked generator with Tarven refugee schoolmate Sami. Tessa is technically skilled and briefly points out a defective bearing. Do not suddenly reconcile them.
+- **Northern proof:** Niko Rahl signs evidence concerning the Ministry of Continuity's **Department of Civic Weather**, the **Southern Liaison Program**, Kest's authorization, and a funded relationship with **Harborbridge Civic Services**. Material reaches the south through an independent research organization investigating abuses linked to Tarven. The full chain is not publicly exposed. Niko's identity remains protected publicly, but his access may be investigated by Veyr security.
+- **Evidence limits:** The documents show a deliberate program aimed at weakening cross-group civic cooperation, and corroborate certain payment links. They **do not** establish that Veyr scripted Joren's words, that domestic groups knowingly colluded, that every viral event was engineered, or that the election result was rigged. The Ministry denies the materials, without responding to independent corroboration.
+- **Publication:** Eva and Samuel print the verified story in the *Merrow Chronicle*. Each political camp circulates selective screenshots implicating the other. Nera Valen announces a broadly tasked inquiry; partisan fights delay appointment of commissioners. The library removes Sela's evidence display table on institutional grounds, though documents remain available on request. Sela is not yet detained.
+- **Joren:** He attempts to suspend *The Honest Hour* amid funding doubts, but a producer uses old footage in a fresh, misleading compilation under broad contractual reuse rights. Mira comforts him; his past behavior is not erased.
+- **Irena and Kest:** Irena understands the harm and rejects Niko's memorandum rather than standing against ministry policy. Kest begins reviewing whether a self-sustaining civic fracture requires less external funding. Veyr has not received its final medals.
+- **Part V handoff:** Real intimidation and public disorder lead Liora's cabinet to consider a public-order emergency bill. A broad **psychiatric risk-assessment** provision enters a later draft and faces legal objection. The **Public Disorder Act** has not yet passed. Later chapters must introduce psychiatrist Dr. Oren Pell, preserve distinction between psychiatric illness and dissent, show corrupted evaluations as abuse, and leave the north's final victory for Part VI.
+
 ## Structural plan
 
 ### PART I — THE SUMMER OF OPEN DOORS (published; chapters 01–05)
@@ -69,11 +83,11 @@ Mental illness is not a shorthand for wrongness. The later psychiatric detention
 12. **Official Results.** Irena's ministry presentation uses genuine signs of declining trust while overstating what Veyr caused. Niko presses for correction, Irena accepts a promotion, and bureaucratic reward replaces professional caution.
 13. **The Last Shared Sunday.** Mrs. Kade dies of old age, not political conflict. At her memorial the town manages to eat, mourn, and listen together. Tomas and Dain almost reconcile, but the old patterns return before either accepts the invitation to go fishing.
 
-### PART IV — THE COUNTRY THAT HATED ITSELF (planned; chapters 14–17)
-14. **The Election Nobody Could Lose.** The result has legal force but loses broad social legitimacy.
-15. **A Republic of Small Rooms.** Neighborhood associations, clinics, unions, churches, and clubs fragment. Economic damage spreads beyond ideology.
-16. **The File That Crossed the Sea.** Niko's internal evidence reaches Eva through an uncertain chain. It is authentic, incomplete, and politically explosive.
-17. **Every Fact Has Two Histories.** A genuine revelation is absorbed into the already fractured public sphere. The operators no longer need to maintain every fire.
+### PART IV — THE COUNTRY THAT HATED ITSELF (published; chapters 14–17)
+14. **The Election Nobody Could Lose.** Renewal wins the most votes and seats, but a lawful Common Future-led coalition wins parliament's confidence. The electoral process survives formal challenges, while broad social legitimacy disintegrates. Ivo cannot understand why each camp claims a lawful defeat ends the country.
+15. **A Republic of Small Rooms.** The upstairs political meeting room, railway depot, clinic coordination, repair circle, library associations, and Chronicle all diminish. Dain and Tomas restore power together during a real outage, but a photograph of the repair re-enters partisan interpretation. Sela adds a notebook page for what still works.
+16. **The File That Crossed the Sea.** Niko confronts Irena over the program's ethics, signs limited records documenting Kest's authorization of Civic Weather's covert Southern Liaison Program and a Harborbridge relationship, and passes them to an independent Tarven-focused research organization. Eva verifies elements without claiming the north decided Liora's election. The file carries the two Rowan Way supper photographs.
+17. **Every Fact Has Two Histories.** The Chronicle publishes genuine, carefully bounded evidence. Renewal and Common Future circulate opposing crops of the same documents. Joren tries to stop the Honest Hour; the producer reuses earlier material. Sela's library evidence table is removed under institutional pressure. Veyr recognizes domestic actors now sustain much of the fragmentation. Liora's cabinet receives the first draft of emergency public-order powers, including a nascent psychiatric assessment provision.
 
 ### PART V — THE DIAGNOSIS (planned; chapters 18–21)
 18. **The Public Disorder Act.** Emergency powers provide a legal framework for detention and institutional control.
@@ -107,4 +121,4 @@ Each released chapter is a UTF-8 Markdown file under `book/part-XX/`. The JSON m
 
 The root `index.html` site uses only static HTML/CSS/JavaScript and works on GitHub Pages with no database, API key, or server. Local Python audio rendering uses Piper, an open-source local TTS engine, and optional FFmpeg. The narrator reads the Markdown text, not a paraphrase. Each chapter can be rendered separately and published as `audio/<chapter-slug>.mp3`. The site checks for audio availability and shows a clear fallback while no audio file exists.
 
-**Draft status as of 2026-11-07:** Parts I–III, Chapters 01–13, written; Parts IV–VI, Chapters 14–24 and epilogue, outlined and unwritten. Never describe them as finished.
+**Draft status as of 2026-11-07:** Parts I–IV, Chapters 01–17, written; Parts V–VI, Chapters 18–24 and epilogue, outlined and unwritten. Never describe them as finished.

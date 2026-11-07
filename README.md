@@ -10,7 +10,7 @@ The planned ending is uncompromising: **Liora ceases to exist as a sovereign sta
 
 ## What is actually written?
 
-**Parts I–III are published: Chapters 01–13.** Part III, *The Feed Between Us*, adds four complete chapters (approximately 13,500 words) to the nine-chapter novel so far. Parts IV–VI are outlined in [DESIGN.md](DESIGN.md), but their prose has **not** yet been written. We publish the novel in parts, never passing off an outline as a finished book.
+**Parts I–IV are published: Chapters 01–17.** Part IV, *The Country That Hated Itself*, adds four complete chapters (approximately 14,000 words) about the disputed election, the loss of shared civic infrastructure, a verified northern file, and the contested public disclosure. Parts V–VI are outlined in [DESIGN.md](DESIGN.md), but their prose has **not** yet been written. We publish the novel in parts, never passing off an outline as a finished book.
 
 | Chapter | Title |
 | --- | --- |
@@ -29,8 +29,13 @@ The planned ending is uncompromising: **Liora ceases to exist as a sovereign sta
 | 11 | Children of the Borderless War |
 | 12 | Official Results |
 | 13 | The Last Shared Sunday |
+| **Part IV** | **The Country That Hated Itself** |
+| 14 | The Election Nobody Could Lose |
+| 15 | A Republic of Small Rooms |
+| 16 | The File That Crossed the Sea |
+| 17 | Every Fact Has Two Histories |
 
-The canonical chapter files live in `book/part-01/`, `book/part-02/`, and `book/part-03/`; the published table of contents lives in `book/manifest.json`.
+The canonical chapter files live in `book/part-01/` through `book/part-04/`; the published table of contents lives in `book/manifest.json`.
 
 ## Publish the reading website (GitHub Pages)
 
@@ -97,6 +102,7 @@ book/manifest.json                  Published chapter index
 book/part-01/*.md                   Written Part I manuscript
 book/part-02/*.md                   Written Part II manuscript
 book/part-03/*.md                   Written Part III manuscript
+book/part-04/*.md                   Written Part IV manuscript
 tools/render_audio.py               Offline text-to-speech pipeline
 requirements-audio.txt              Piper dependency
 tests/test_audio_pipeline.py        Parser / manifest / chunking tests

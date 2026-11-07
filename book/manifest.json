@@ -130,13 +130,49 @@
           "words": 4029
         }
       ]
+    },
+    {
+      "id": "part-04",
+      "title": "The Country That Hated Itself",
+      "status": "published",
+      "description": "A lawful election, institutions coming apart, and proof the country cannot hear.",
+      "chapters": [
+        {
+          "id": "14",
+          "title": "The Election Nobody Could Lose",
+          "description": "The vote is legitimate. Winning the right to govern no longer means being believed.",
+          "path": "book/part-04/14-the-election-nobody-could-lose.md",
+          "audio": "audio/14-the-election-nobody-could-lose.mp3",
+          "words": 3176
+        },
+        {
+          "id": "15",
+          "title": "A Republic of Small Rooms",
+          "description": "Shared institutions close even as ordinary people keep trying to help.",
+          "path": "book/part-04/15-a-republic-of-small-rooms.md",
+          "audio": "audio/15-a-republic-of-small-rooms.mp3",
+          "words": 3310
+        },
+        {
+          "id": "16",
+          "title": "The File That Crossed the Sea",
+          "description": "A cautious northern analyst signs his name to evidence Eva can verify.",
+          "path": "book/part-04/16-the-file-that-crossed-the-sea.md",
+          "audio": "audio/16-the-file-that-crossed-the-sea.mp3",
+          "words": 3552
+        },
+        {
+          "id": "17",
+          "title": "Every Fact Has Two Histories",
+          "description": "The exposure is genuine; the country fractures around what it means.",
+          "path": "book/part-04/17-every-fact-has-two-histories.md",
+          "audio": "audio/17-every-fact-has-two-histories.mp3",
+          "words": 3945
+        }
+      ]
     }
   ],
   "plannedParts": [
-    {
-      "id": "part-04",
-      "title": "The Country That Hated Itself"
-    },
     {
       "id": "part-05",
       "title": "The Diagnosis"
